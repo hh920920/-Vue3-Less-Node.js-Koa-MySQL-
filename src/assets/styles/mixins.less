@@ -1,0 +1,10 @@
+// less 混入
+// 使用vue-cli的style-resoures-loader插件来完成自动注入到每个less文件或vue组件的style标签中，这样就不用每个组件引入。命令：vue add style-resoures-loader
+// 鼠标经过上移阴影动画
+.hoverShadow () {
+    transition: all .5s;
+    &:hover {
+      transform: translate3d(0,-3px,0);
+      box-shadow: 0 3 px 8px rgba(0,0,0,0.2);
+    }
+}
