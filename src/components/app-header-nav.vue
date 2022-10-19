@@ -59,7 +59,7 @@ export default {
       font-size: 16px;
       line-height: 32px;
       height: 32px;
-      display: inline-block;
+      // display: inline-block;
     }
     &:hover {
       > a {

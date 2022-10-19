@@ -34,5 +34,11 @@ export default {
   ::v-deep .carousel-indicator {
     padding-left: 250px;
   }
+  ::v-deep a:hover {
+    background-color: @xtxColor;
+  }
+  ::v-deep .carousel-indicator span.active {
+    background-color: @xtxColor;
+  }
 }
 </style>

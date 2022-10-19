@@ -5,7 +5,7 @@
       <span class="title">{{goodsId?'同类商品推荐':'猜你喜欢'}}</span>
     </div>
     <!-- 此处使用改造后的xtx-carousel.vue -->
-    <XtxCarousel :sliders="sliders" />
+    <XtxCarousel :sliders="sliders" :autoPlay="true" />
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
       default: ''
     }
   },
-  setup (props) {
+  setup(props) {
     // 最终需要的数据是 sliders 提供给轮播图使用
     // 数据结构：sliders = [[4个],[4个],[4个],[4个]]
     const sliders = ref([])
@@ -88,7 +88,7 @@ export default {
     &-btn {
       top: 110px;
       opacity: 1;
-      background: rgba(0,0,0,0);
+      background: rgba(0, 0, 0, 0);
       color: #ddd;
       &:hover {
         background-color: @xtxColor;
@@ -98,5 +98,12 @@ export default {
       }
     }
   }
+}
+::v-deep .slider a  {
+  transition: all 1s;
+    &:hover {
+      transform: translate3d(0,-10px,0);
+      box-shadow: 0 3 px 8px rgba(0,0,0,0.5);
+    }
 }
 </style>

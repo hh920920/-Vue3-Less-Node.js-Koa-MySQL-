@@ -29,12 +29,15 @@
       <div class="goods-footer">
         <div class="goods-article">
           <!-- 商品 + 评价 -->
-          <div class="goods-tabs"></div>
+          <GoodsTabs :goods="goods" />
           <!-- 注意事项 -->
-          <div class="goods-warn"></div>
+          <GoodsWarn />
         </div>
         <!-- 24h 热榜 + 专题推荐 -->
-        <div class="goods-aside"></div>
+        <div class="goods-aside">
+          <GoodsHot :goodsId="goods.id" :type="1" />
+          <GoodsHot :goodsId="goods.id" :type="2" />
+        </div>
       </div>
     </div>
   </div>
@@ -45,12 +48,15 @@ import GoodsImage from './components/goods-image.vue'
 import GoodsSales from './components/goods-sales.vue'
 import GoodsInfo from './components/goods-info.vue'
 import GoodsSku from './components/goods-sku.vue'
-import { nextTick, ref, watch } from 'vue'
+import GoodsTabs from './components/goods-tabs.vue'
+import GoodsHot from './components/goods-hot'
+import GoodsWarn from './components/goods-warn.vue'
+import { nextTick, ref, watch, provide } from 'vue'
 import { findGoods } from '@/api/product'
 import { useRoute } from 'vue-router'
 export default {
   name: 'XtxGoodsPage',
-  components: { GoodsRelevant, GoodsImage, GoodsSales, GoodsInfo, GoodsSku },
+  components: { GoodsRelevant, GoodsImage, GoodsSales, GoodsInfo, GoodsSku, GoodsTabs, GoodsHot, GoodsWarn },
   setup() {
     const goods = useGoods()
 
@@ -63,7 +69,8 @@ export default {
       goods.value.oldPrice = sku.oldPrice
       goods.value.inventory = sku.inventory
     }
-
+    
+    provide('goods', goods)
 
     return { goods, changeSku, num }
   }
@@ -113,10 +120,6 @@ const useGoods = () => {
     width: 280px;
     min-height: 1000px;
   }
-}
-.goods-tabs {
-  min-height: 600px;
-  background: #fff;
 }
 .goods-warn {
   min-height: 600px;
