@@ -51,6 +51,7 @@
     </div>
     <!-- 分页组件 -->
     <XtxPagination v-if="total" @current-change="changePagerFn" :page-size="reqParams.pageSize" :current-page="reqParams.page" />
+    <!-- <XtxPagination />  -->
   </div>
 </template>
 <script>
