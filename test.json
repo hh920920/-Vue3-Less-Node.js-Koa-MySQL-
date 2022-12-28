@@ -1,0 +1,160 @@
+{
+    "msg": "操作成功",
+    "result": {
+        "id": "19999999001",
+        "name": "乐器杂项",
+        "picture": null,
+        "parentId": "19999999",
+        "parentName": "杂项",
+        "goods": [
+            {
+                "id": "3993375",
+                "name": "云音乐定制IN系列intar民谣木吉他",
+                "desc": "云音乐2020in系列全新设计intar民谣木吉他",
+                "price": "589.00",
+                "picture": "https://yanxuan-item.nosdn.127.net/4d825431a3587edb63cb165166f8fc76.jpg",
+                "discount": null,
+                "orderNum": 127
+            },
+            {
+                "id": "3856000",
+                "name": "初学入门山羊皮8/10寸雕刻实木非洲鼓",
+                "desc": "充满异域风情的打击乐器非洲鼓，有着广泛的学习人群以及不俗的表现力度，是各种舞会晚会的常选乐器品种",
+                "price": "168.00",
+                "picture": "https://yanxuan-item.nosdn.127.net/e7eb0d897af1dd37cb1adb1b20a57fc1.jpg",
+                "discount": null,
+                "orderNum": 264
+            },
+            {
+                "id": "3494003",
+                "name": "网易云音乐易系列尤克里里入门款23寸",
+                "desc": "网易云音乐定制胡桃木/桃花芯二色可选入门级合板琴23寸",
+                "price": "319.00",
+                "picture": "https://yanxuan-item.nosdn.127.net/669dba51e7d2cc697333b05ea407a1ed.png",
+                "discount": null,
+                "orderNum": 226
+            },
+            {
+                "id": "3458035",
+                "name": "混合全单初学者入门民谣木吉他",
+                "desc": "新型材质琴体音色稳定",
+                "price": "899.00",
+                "picture": "https://yanxuan-item.nosdn.127.net/73a9f37c20407482fc839f0ee0215cbc.png",
+                "discount": null,
+                "orderNum": 119
+            },
+            {
+                "id": "1673031",
+                "name": "儿童88键电子智能钢琴",
+                "desc": "家庭学琴首选",
+                "price": "4999.00",
+                "picture": "https://yanxuan-item.nosdn.127.net/baf35ba7b1e444d16719fc5fd4f3233c.png",
+                "discount": null,
+                "orderNum": 203
+            },
+            {
+                "id": "1542008",
+                "name": "儿童智能电子琴",
+                "desc": "宝宝的随身钢琴老师",
+                "price": "1699.00",
+                "picture": "https://yanxuan-item.nosdn.127.net/f3f5d66d3c2a8d4d6c839b6c227ed01b.png",
+                "discount": null,
+                "orderNum": 92
+            }
+        ],
+        "categories": [
+            {
+                "id": "19999999001",
+                "name": "乐器杂项",
+                "layer": 2,
+                "parent": null
+            }
+        ],
+        "brands": [
+            {
+                "id": "1",
+                "name": "咏汉定制",
+                "nameEn": "jjzr",
+                "logo": "http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-22/fdbc5113-dcca-4b7f-b1d6-c51faf8e3de9.jpg",
+                "picture": "http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-22/fdbc5113-dcca-4b7f-b1d6-c51faf8e3de9.jpg",
+                "type": null,
+                "desc": "优秀的品牌，优秀的传扬",
+                "place": "中国江苏传智"
+            }
+        ],
+        "saleProperties": [
+            {
+                "id": "1394904088678711297",
+                "name": "颜色",
+                "properties": [
+                    {
+                        "id": "1394904429507854337",
+                        "name": "纯爱白"
+                    },
+                    {
+                        "id": "1394905736943714306",
+                        "name": "日落色"
+                    },
+                    {
+                        "id": "1394904089182027778",
+                        "name": "白色"
+                    },
+                    {
+                        "id": "1394904088968118274",
+                        "name": "黑色"
+                    },
+                    {
+                        "id": "1394904428824182786",
+                        "name": "经典黑"
+                    },
+                    {
+                        "id": "1394905735551205377",
+                        "name": "原木色"
+                    }
+                ]
+            },
+            {
+                "id": "1394905568362053633",
+                "name": "尺寸",
+                "properties": [
+                    {
+                        "id": "1394905569830060034",
+                        "name": "实木手工雕刻非洲鼓10寸：适合成人"
+                    },
+                    {
+                        "id": "1394905569268023297",
+                        "name": "实木手工雕刻非洲鼓8寸：适合儿童"
+                    }
+                ]
+            },
+            {
+                "id": "1394905023677153281",
+                "name": "材质",
+                "properties": [
+                    {
+                        "id": "1394905024880918529",
+                        "name": "桃花芯"
+                    },
+                    {
+                        "id": "1394905025514258433",
+                        "name": "胡桃木"
+                    }
+                ]
+            },
+            {
+                "id": "1394904832572080129",
+                "name": "规格",
+                "properties": [
+                    {
+                        "id": "1394904833079590914",
+                        "name": "41寸"
+                    },
+                    {
+                        "id": "1394904832890847234",
+                        "name": "36寸"
+                    }
+                ]
+            }
+        ]
+    }
+}
