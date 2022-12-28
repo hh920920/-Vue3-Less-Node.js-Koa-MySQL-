@@ -50,8 +50,7 @@
       </div>
     </div>
     <!-- 分页组件 -->
-    <XtxPagination v-if="total" @current-change="changePagerFn" :page-size="reqParams.pageSize" :current-page="reqParams.page" />
-    <!-- <XtxPagination />  -->
+    <XxmPagination v-if="total" @current-change="changePagerFn" :page-size="reqParams.pageSize" :current-page="reqParams.page" />
   </div>
 </template>
 <script>
@@ -197,13 +196,13 @@ export default {
           text-align: center;
           line-height: 40px;
           &:hover {
-            border-color: @xtxColor;
-            background: lighten(@xtxColor, 50%);
-            color: @xtxColor;
+            border-color: @themeColor;
+            background: lighten(@themeColor, 50%);
+            color: @themeColor;
           }
           &.active {
-            border-color: @xtxColor;
-            background: @xtxColor;
+            border-color: @themeColor;
+            background: @themeColor;
             color: #fff;
           }
         }
@@ -224,7 +223,7 @@ export default {
       margin-left: 30px;
       &.active,
       &:hover {
-        color: @xtxColor;
+        color: @themeColor;
       }
     }
   }

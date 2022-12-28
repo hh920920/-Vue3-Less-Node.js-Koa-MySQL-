@@ -36,7 +36,7 @@ export default {
       display: block;
       height: 112px;
       width: 100%;
-      background: url(../assets/images/logo.jpg) no-repeat center 16px / contain;
+      background: url(../../assets/images/logo.jpg) no-repeat center 16px / contain;
     }
   }
   .search {
@@ -50,7 +50,7 @@ export default {
       margin-left: 5px;
       cursor: pointer;
       &:hover {
-        color: @xtxColor;
+        color: @themeColor;
       }
     }
     input {

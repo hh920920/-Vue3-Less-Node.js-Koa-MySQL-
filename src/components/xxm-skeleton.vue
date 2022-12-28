@@ -1,6 +1,6 @@
 <template>
   <div
-    class="xtx-skeleton"
+    class="xxm-skeleton"
     :style="{ width, height }"
     :class="{ shan: animated }"
   >
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'XtxSkeleton',
+  name: 'XxmSkeleton',
   // 使用的时候需要动态设置 宽度、高度、背景颜色，是否闪下
   props: {
     bg: {
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.xtx-skeleton {
+.xxm-skeleton {
   display: inline-block;
   position: relative;
   overflow: hidden;

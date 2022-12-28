@@ -19,7 +19,7 @@
               <p class="price">&yen;{{goods.nowPrice}}</p>
               <p class="count">x{{goods.count}}</p>
             </div>
-          </RouterLink>
+          </RouterLink> -->
           <i @click="deleteCart(goods.skuId)" class="iconfont icon-close-new"></i>
         </div>
       </div>
@@ -30,6 +30,10 @@
         </div>
         <XtxButton @click="$router.push('/cart')" type="plain">去购物车结算</XtxButton>
       </div>
+    </div>
+    <!-- 如果没登录，购物车没商品，则弹出此层 -->
+    <div class="cart-none layer" v-if="$store.getters['cart/validTotal'] === 0">
+    <div class="loading"></div>
     </div>
   </div>
 </template>
@@ -92,17 +96,18 @@ export default {
   // 弹层样式
   .layer {
     opacity: 0;
-    transition: all .4s .2s;
+    transition: all .4s .2s;   
     transform: translateY(-200px) scale(1, 0);
     width: 400px;
     height: 400px;
     position: absolute;
     top: 50px;
     right: 0;
+    background-color: #fff;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    background: #fff;
     border-radius: 4px;
     padding-top: 10px;
+    // 三角箭头伪元素
     &::before {
       content: "";
       position: absolute;
@@ -119,7 +124,7 @@ export default {
       left: 0;
       bottom: 0;
       height: 70px;
-      width: 100%;
+      width: 380px;
       padding: 10px;
       display: flex;
       justify-content: space-between;
@@ -207,6 +212,22 @@ export default {
           }
         }
       }
+    }
+  }
+  .cart-none {
+    opacity: 0;
+    position: absolute;
+    transition: all .4s .2s;   
+    transform: translateY(-100px) scale(1, 0);
+    width: 300px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .loading {
+      width: 80px;
+      height: 80px;
+      background: url("@/assets/images/loading.gif") no-repeat;
     }
   }
 }

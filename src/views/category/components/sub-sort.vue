@@ -12,8 +12,8 @@
       </a>
     </div>
     <div class="check">
-      <XtxCheckbox @change="changeCheck" v-model="sortParams.inventory">仅显示有货商品</XtxCheckbox>
-      <XtxCheckbox @change="changeCheck" v-model="sortParams.onlyDiscount">仅显示特惠商品</XtxCheckbox>
+      <XxmCheckbox @change="changeCheck" v-model="sortParams.inventory">仅显示有货商品</XxmCheckbox>
+      <XxmCheckbox @change="changeCheck" v-model="sortParams.onlyDiscount">仅显示特惠商品</XxmCheckbox>
     </div>
   </div>
 </template>
@@ -54,6 +54,7 @@ export default {
       emit('sort-change', sortParams)
     }
 
+    // 显示有货或显示特惠
     const changeCheck = (sortField) => {
       emit('sort-change', sortParams)
     }
@@ -81,8 +82,8 @@ export default {
       position: relative;
       transition: all 0.3s;
       &.active {
-        background: @xtxColor;
-        border-color: @xtxColor;
+        background: @themeColor;
+        border-color: @themeColor;
         color: #fff;
       }
       .arrow {
@@ -93,14 +94,14 @@ export default {
           top: 3px;
           border-bottom-color: #bbb;
           &.active {
-            border-bottom-color: @xtxColor;
+            border-bottom-color: @themeColor;
           }
         }
         &.down {
           top: 15px;
           border-top-color: #bbb;
           &.active {
-            border-top-color: @xtxColor;
+            border-top-color: @themeColor;
           }
         }
       }

@@ -34,7 +34,7 @@ export default {
 .home-panel {
   background-color: #fff;
   .head {
-    padding: 40px 0;
+    padding: 40px 0px;
     display: flex;
     align-items: flex-end;
     h3 {

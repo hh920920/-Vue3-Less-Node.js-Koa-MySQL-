@@ -1,5 +1,5 @@
 <template>
-    <div class="xtx-checkbox" @click="changeChecked()">
+    <div class="xxm-checkbox" @click="changeChecked()">
         <i v-if="checked" class="iconfont icon-checked"></i>
         <i v-else class="iconfont icon-unchecked"></i>
         <span v-if="$slots.default"><slot/></span>
@@ -8,7 +8,7 @@
 <script>
 import { useVModel } from '@vueuse/core'
 export default {
-    name: 'XtxCheckbox',
+    name: 'XxmCheckbox',
     props: {
         modelValue: {
             type: Boolean,
@@ -34,13 +34,13 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.xtx-checkbox {
+.xxm-checkbox {
     display: inline-block;
     margin-right: 2px;
     .icon-checked {
-        color: @xtxColor;
+        color: @themeColor;
         ~span {
-            color: @xtxColor;
+            color: @themeColor;
         }
     }
     i {

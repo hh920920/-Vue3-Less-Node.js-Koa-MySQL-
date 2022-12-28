@@ -5,7 +5,7 @@
       <span class="title">{{goodsId?'同类商品推荐':'猜你喜欢'}}</span>
     </div>
     <!-- 此处使用改造后的xtx-carousel.vue -->
-    <XtxCarousel :sliders="sliders" :autoPlay="true" />
+    <XxmCarousel :sliders="sliders" :autoPlay="true" />
   </div>
 </template>
 
@@ -56,8 +56,8 @@ export default {
       width: 16px;
       height: 16px;
       display: inline-block;
-      border-top: 4px solid @xtxColor;
-      border-right: 4px solid @xtxColor;
+      border-top: 4px solid @themeColor;
+      border-right: 4px solid @themeColor;
       box-sizing: border-box;
       position: relative;
       transform: rotate(45deg);
@@ -68,7 +68,7 @@ export default {
         position: absolute;
         left: 0;
         top: 2px;
-        background: lighten(@xtxColor, 40%);
+        background: lighten(@themeColor, 40%);
       }
     }
   }
@@ -81,7 +81,7 @@ export default {
       bottom: 30px;
       span {
         &.active {
-          background: @xtxColor;
+          background: @themeColor;
         }
       }
     }
@@ -91,7 +91,7 @@ export default {
       background: rgba(0, 0, 0, 0);
       color: #ddd;
       &:hover {
-        background-color: @xtxColor;
+        background-color: @themeColor;
       }
       i {
         font-size: 30px;

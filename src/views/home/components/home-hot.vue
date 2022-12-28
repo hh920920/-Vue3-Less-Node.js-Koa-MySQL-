@@ -32,11 +32,6 @@ export default {
     HomeSkeleton
   },
   setup () {
-    // const hotList = ref([])
-    // findHot().then(data => {
-    //   hotList.value = data.result
-    //   return hotList
-    // })
     const { target, result } = useLazyData(findHot)
     return { hotList: result, target }
   }

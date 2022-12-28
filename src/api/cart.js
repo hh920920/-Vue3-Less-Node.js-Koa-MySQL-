@@ -10,6 +10,15 @@ export const getNewCartGoods = (skuId) => {
 }
 
 /**
+ * 获取登录后的购物车列表
+ * @returns Promise
+ */
+ export const findCartList = () => {
+  return request('/member/cart', 'get')
+}
+
+
+/**
  *  获取商品对应的sku数据
  *  @param {String} skuId - SKU id
  */

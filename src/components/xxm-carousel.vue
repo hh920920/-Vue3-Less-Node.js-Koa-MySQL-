@@ -1,5 +1,5 @@
 <template>
-  <div class='xtx-carousel' @mouseenter="stop()" @mouseleave="start()">
+  <div class='xxm-carousel' @mouseenter="stop()" @mouseleave="start()">
     <!-- 图片容器 -->
     <ul class="carousel-body">
       <!-- fade 显示的图片加上 -->
@@ -33,7 +33,7 @@
 <script>
 import { onUnmounted, ref, watch } from 'vue'
 export default {
-  name: 'XtxCarousel',
+  name: 'XxmCarousel',
   props: {
     // 轮播图数据
     sliders: {
@@ -113,7 +113,7 @@ export default {
 }
 </script>
 <style scoped lang="less">
-.xtx-carousel{
+.xxm-carousel{
   width: 100%;
   height: 100%;
   min-width: 300px;

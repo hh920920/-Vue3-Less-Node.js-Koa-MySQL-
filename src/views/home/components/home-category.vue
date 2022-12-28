@@ -13,8 +13,8 @@
         </template>
         <!-- 骨架 -->
         <template v-else>
-          <XtxSkeleton height="18px" width="60px" bg="rgba(255,255,255,0.2)" style="margin-right:5px" />
-          <XtxSkeleton height="18px" width="50px" bg="rgba(255,255,255,0.2)"/>
+          <XxmSkeleton height="18px" width="60px" bg="rgba(255,255,255,0.2)" style="margin-right:5px" />
+          <XxmSkeleton height="18px" width="50px" bg="rgba(255,255,255,0.2)"/>
         </template>
       </li>
     </ul>
@@ -24,7 +24,7 @@
       <!-- 商品 -->
       <ul v-if="currCategory && currCategory.goods">
         <li v-for="item in currCategory.goods" :key="item.id">
-          <RouterLink :to="`/product/${item.id}`">
+          <RouterLink :to="`/product/${item.goods_id}`">
             <img :src="item.picture" alt="">
             <div class="info">
               <p class="name ellipsis-2">{{item.name}}</p>
@@ -71,10 +71,10 @@ export default {
       // 得到9个分类切每个一级分类下的子分类只有两个
       const list = store.state.category.list.map((item) => {
         return {
-          id: item.id,
+          id: item.category_id,
           name: item.name,
           children: item.children && item.children.slice(0, 2),
-          goods: item.goods
+          goods: item.goods && item.goods.slice(0,9)
         }
       })
       list.push(brand)
@@ -110,7 +110,7 @@ export default {
       height: 50px;
       line-height: 50px;
       &:hover,&.active {
-        background: @xtxColor;
+        background: @themeColor;
       }
       a {
         margin-right: 4px;

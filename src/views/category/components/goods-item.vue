@@ -1,10 +1,10 @@
 <template>
-  <router-link :to="`/product/${goods.id}`" class="goods-item">
+  <RouterLink :to="`/product/${goods.goods_id}`" class="goods-item">
     <img :src="goods.picture" alt="">
     <p class="name ellipsis">{{goods.name}}</p>
-    <p class="desc ellipsis">{{goods.tag}}</p>
+    <p class="desc ellipsis">{{goods.de_sc}}</p>
     <p class="price">&yen;{{goods.price}}</p>
-  </router-link>
+  </RouterLink>
 </template>
 <script>
 export default {
@@ -21,7 +21,7 @@ export default {
 <style scoped lang='less'>
 .goods-item {
   display: block;
-  width: 220px;
+  width: 160px;
   padding: 20px 30px;
   text-align: center;
   .hoverShadow();

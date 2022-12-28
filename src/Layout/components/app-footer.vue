@@ -15,7 +15,7 @@
         </dl>
         <dl>
           <dt>下载APP</dt>
-          <dd class="qrcode"><img src="../assets/images/qrcode.jpg" /></dd>
+          <dd class="qrcode"><img src="../../assets/images/qrcode.jpg" /></dd>
           <dd class="download">
             <span>扫描二维码</span>
             <span>立马下载APP</span>
@@ -56,7 +56,7 @@
             <a href="javascript:;">搜索推荐</a>
             <a href="javascript:;">友情链接</a>
           </p>
-          <p>CopyRight © 小兔鲜儿</p>
+          <p>CopyRight © 小熊猫</p>
         </div>
       </div>
     </div>
@@ -112,7 +112,7 @@ export default {
       }
       &:hover {
         .iconfont {
-          color: @xtxColor;
+          color: @themeColor;
         }
       }
       &:last-child {
@@ -141,7 +141,7 @@ export default {
         margin-top: 5px;
         color: #fff;
         border-radius: 2px;
-        background-color: @xtxColor;
+        background-color: @themeColor;
       }
     }
     .hotline {

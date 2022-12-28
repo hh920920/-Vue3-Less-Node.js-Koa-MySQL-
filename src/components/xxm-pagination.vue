@@ -1,5 +1,5 @@
 <template>
-  <div class="xtx-pagination">
+  <div class="xxm-pagination">
     <a v-if="myCurrentPage === 1" href="javascript:;" class="disable">上一页</a>
     <a @click="changePage(myCurrentPage - 1)" v-else href="javascript:;">上一页</a>
     <span v-if="pager.start > 1">...</span>
@@ -11,9 +11,9 @@
 </template>
 <script>
 import { computed } from 'vue-demi'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 export default {
-  name: 'XtxPagination',
+  name: 'XxmPagination',
   props: {
     total: {
       type: Number,
@@ -85,7 +85,7 @@ export default {
 }
 </script>
 <style lang="less">
-.xtx-pagination {
+.xxm-pagination {
   display: flex;
   justify-content: center;
   padding: 30px;
@@ -96,12 +96,12 @@ export default {
     padding: 5px 10px;
     margin-right: 10px;
     &:hover {
-      color: @xtxColor;
+      color: @themeColor;
     }
     &.active {
       color: #fff;
-      background: @xtxColor;
-      border-color: @xtxColor;
+      background: @themeColor;
+      border-color: @themeColor;
     }
     &.disable {
       cursor: not-allowed;

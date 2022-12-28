@@ -73,7 +73,7 @@ export default {
           bottom: -1px;
           width: 72px;
           height: 1.5px;
-          background: @xtxColor;
+          background: @themeColor;
         }
       }
     }

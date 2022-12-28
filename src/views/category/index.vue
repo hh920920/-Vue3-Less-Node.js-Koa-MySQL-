@@ -2,35 +2,37 @@
   <div class="top-category">
     <div class="container">
       <!-- 面包屑 -->
-      <XtxBread>
-        <XtxBreadItem to="/">首页</XtxBreadItem>
+      <XxmBread>
+        <XxmBreadItem to="/">首页</XxmBreadItem>
         <transition name="fade-right" mode="out-in">
-          <XtxBreadItem :key="topCategory.id">{{topCategory.name}}</XtxBreadItem>
+          <XxmBreadItem :key="topCategory.category_id">{{topCategory.name}}</XxmBreadItem>
         </transition>
-      </XtxBread>
+      </XxmBread>
       <!-- 轮播图 -->
-      <XtxCarousel :sliders="sliders" style="height:500px" />
+      <XxmCarousel :sliders="sliders" style="height:500px" />
       <!-- 所有二级分类 -->
       <div class="sub-list">
         <h3>全部分类</h3>
         <ul>
           <li v-for="sub in topCategory.children" :key="sub.id">
-            <a href="javascript:;">
-              <img :src="sub.picture" >
-              <p>{{sub.name}}</p>
-            </a>
+            <router-link :to="`/category/sub/${sub.children_id}`">
+              <a href="javascript:;">
+                <img :src="sub.picture">
+                <p>{{sub.name}}</p>
+              </a>
+            </router-link>
           </li>
         </ul>
       </div>
-       <!-- 分类关联商品 -->
+      <!-- 分类关联商品 -->
       <div class="ref-goods" v-for="sub in subList" :key="sub.id">
         <div class="head">
           <h3>- {{sub.name}} -</h3>
-          <p class="tag">{{sub.desc}}</p>
-          <XtxMore :path="`/category/sub/${sub.id}`" />
+          <p class="tag">{{sub.de_sc}}</p>
+          <XxmMore :path="`/category/sub/${sub.id}`" />
         </div>
         <div class="body">
-          <GoodsItem v-for="goods in sub.goods" :key="goods.id"  :goods="goods" />
+          <GoodsItem v-for="goods in sub.chirldren_goods" :key="goods.goods_id" :goods="goods" />
         </div>
       </div>
     </div>
@@ -46,7 +48,9 @@ import { findTopCategory } from '@/api/category'
 export default {
   name: 'TopCategory',
   components: { GoodsItem },
-  setup () {
+  setup() {
+
+
     // 轮播图
     const sliders = ref([])
     findBanner().then(data => {
@@ -61,18 +65,22 @@ export default {
       let cate = {}
       // 当前顶级分类 === 根据路由上的ID去vuex中category模块的list中查找
       const item = store.state.category.list.find(item => {
-        return item.id === route.params.id
+        return item.category_id == route.params.id
       })
       // 找到数据赋值
-      if (item) cate = item
+      if (item) {
+        cate = item
+      }
       return cate
     })
 
+
     // 获取各个子类目下推荐商品
     const subList = ref([])
-    const getSubList = () => {
-      findTopCategory(route.params.id).then(data => {
-        subList.value = data.result.children
+
+    const getSubList = async () => {
+      subList.value = await findTopCategory(route.params.id).then(data => {
+        return data.result[0].children
       })
     }
     watch(() => route.params.id, (newVal) => {
@@ -120,7 +128,7 @@ export default {
             line-height: 40px;
           }
           &:hover {
-            color: @xtxColor;
+            color: @themeColor;
           }
         }
       }
@@ -149,15 +157,15 @@ export default {
       display: flex;
       justify-content: flex-start;
       flex-wrap: wrap;
-
       padding: 0 65px 30px;
+      box-sizing: border-box;
     }
   }
 }
 
 // 面包屑切换动画
 .fade-right-enter-to,
-.fade-right-enter-from{
+.fade-right-enter-from {
   opacity: 1;
   transform: none;
 }
@@ -166,8 +174,8 @@ export default {
   transform: all 2s;
 }
 .fade-right-enter-from,
-.fade-right-leave-to{
+.fade-right-leave-to {
   opacity: 0;
-  transform: translate3d(20px,0,0);
+  transform: translate3d(20px, 0, 0);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="xtx-infinite-loading" ref="target">
+  <div class="xxm-infinite-loading" ref="target">
     <div class="loading" v-if="loading">
       <span class="img"></span>
       <span class="text">正在加载......</span>
@@ -15,7 +15,7 @@
 import { ref } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
 export default {
-  name: 'XtxInfiniteLoading',
+  name: 'XxmInfiniteLoading',
   props: {
     // 加载中
     loading: {
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang="less">
-.xtx-infinite-loading {
+.xxm-infinite-loading {
   .loading {
     display: flex;
     align-items: center;
@@ -66,7 +66,7 @@ export default {
     .img {
       width: 50px;
       height: 50px;
-      background: url(../../assets/images/loading.gif) no-repeat center /
+      background: url(../assets/images/loading.gif) no-repeat center /
         contain;
     }
     .text {
@@ -82,7 +82,7 @@ export default {
     .img {
         width: 200px;
         height: 135px;
-        background: url(../../assets/images/none.png) no-repeat center /
+        background: url(../assets/images/none.png) no-repeat center /
         contain;;
     }
     .text {

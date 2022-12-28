@@ -66,7 +66,7 @@ export default {
       .hoverShadow();
     }
     p {
-      margin: 0 10px;
+      margin: 0px 10px;
     }
     &:hover {
       transform: none;

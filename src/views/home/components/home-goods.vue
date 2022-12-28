@@ -1,10 +1,10 @@
 <template>
   <div class="goods-item">
-    <RouterLink :to="`/product/${goods.id}`" class="image">
+    <RouterLink :to="`/product/${goods.goods_id}`" class="image">
       <img v-lazyload="goods.picture" alt="" />
     </RouterLink>
     <p class="name ellipsis-2">{{goods.name}}</p>
-    <p class="desc ellipsis">{{goods.tag}}</p>
+    <p class="desc ellipsis">{{goods.de_sc}}</p>
     <p class="price">&yen;{{goods.price}}</p>
     <div class="extra">
       <RouterLink to="/">
@@ -73,7 +73,7 @@ export default {
     bottom: 0;
     height: 80px;
     width: 100%;
-    background: @xtxColor;
+    background: @themeColor;
     text-align: center;
     transform: translate3d(0,100%,0);
     transition: all .5s;
@@ -95,7 +95,7 @@ export default {
     }
   }
   &:hover {
-    border-color: @xtxColor;
+    border-color: @themeColor;
     .extra {
       transform: none;
     }

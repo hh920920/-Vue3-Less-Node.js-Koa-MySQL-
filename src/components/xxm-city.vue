@@ -1,5 +1,5 @@
 <template>
-  <div class="xtx-city" ref="target">
+  <div class="xxm-city" ref="target">
     <div class="select" @click="toggleDialog" :class="{active}">
       <span v-if="!fullLocation" class="placeholder">请选择配送地址</span>
       <span v-else class="value">{{ fullLocation }}</span>
@@ -19,7 +19,7 @@ import { computed, reactive, ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import axios from 'axios'
 export default {
-  name: 'XtxCity',
+  name: 'XxmCity',
   props: {
     fullLocation: {
       type: String,
@@ -137,7 +137,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.xtx-city {
+.xxm-city {
   display: inline-block;
   position: relative;
   z-index: 400;
@@ -188,7 +188,7 @@ export default {
     .loading {
       width: 100%;
       height: 290px;
-      background: url("../../assets/images/loading.gif") no-repeat center;
+      background: url("../assets/images/loading.gif") no-repeat center;
     }
   }
 }

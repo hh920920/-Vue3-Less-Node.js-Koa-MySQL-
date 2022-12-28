@@ -1,11 +1,11 @@
 <template>
-  <XtxBread>
-    <XtxBreadItem to="/">首页</XtxBreadItem>
-    <XtxBreadItem v-if="category.top" :to="`/category/${category.top.id}`">{{category.top.name}}</XtxBreadItem>
+  <XxmBread>
+    <XxmBreadItem to="/">首页</XxmBreadItem>
+    <XxmBreadItem v-if="category.top" :to="`/category/${category.top.id}`">{{category.top.name}}</XxmBreadItem>
     <transition name="fade-right" mode="out-in">
-        <XtxBreadItem v-if="category.sub" :key="category.sub.id">{{category.sub.name}}</XtxBreadItem>
+        <XxmBreadItem v-if="category.sub" :key="category.sub.id">{{category.sub.name}}</XxmBreadItem>
     </transition>
-  </XtxBread>
+  </XxmBread>
 </template>
 
 <script>
@@ -27,15 +27,15 @@ export default {
       const obj = {}
       store.state.category.list.forEach(top => {
         top.children && top.children.forEach(sub => {
-          if (sub.id === route.params.id) {
+          if (sub.children_id === parseInt(route.params.id)) {
             // 设置二级类目
-            obj.sub = {id: sub.id, name: sub.name}
+            obj.sub = {id: sub.children_id, name: sub.name}
             // 设置一级类目
-            obj.top = {id: top.id, name: top.name}
+            obj.top = {id: top.children_id, name: top.name}
           }
         })
       })
-
+      
       return obj
     })
 

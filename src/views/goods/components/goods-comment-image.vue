@@ -45,7 +45,7 @@ export default {
         object-fit: contain;
       }
       &.active {
-        border-color: @xtxColor;
+        border-color: @themeColor;
       }
     }
   }

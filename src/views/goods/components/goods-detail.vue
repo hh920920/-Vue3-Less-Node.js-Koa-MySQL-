@@ -24,6 +24,7 @@ export default {
 }
 </script>
 
+
 <style lang="less" scoped>
 .goods-detail {
   padding: 40px;

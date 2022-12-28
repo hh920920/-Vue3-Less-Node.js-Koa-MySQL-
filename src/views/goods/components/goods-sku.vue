@@ -153,7 +153,7 @@ export default {
   margin-bottom: 3px;
   cursor: pointer;
   &.selected {
-    border-color: @xtxColor;
+    border-color: @themeColor;
   }
   &.disabled {
     color: #cfcfcf;

@@ -14,7 +14,7 @@
           </li>
         </ul>
         <div v-else class="skeleton">
-          <XtxSkeleton class="item" v-for="i in 5" :key="i" animated bg="#e4e4e4" width="240px" height="305px" />
+          <XxmSkeleton class="item" v-for="i in 5" :key="i" animated bg="#e4e4e4" width="240px" height="305px" />
         </div>
       </Transition>
     </div>
@@ -72,7 +72,7 @@ export default {
   display: inline-block;
   text-align: center;
   margin-left: 5px;
-  background: @xtxColor;
+  background: @themeColor;
   &::before {
     font-size: 12px;
     position: relative;

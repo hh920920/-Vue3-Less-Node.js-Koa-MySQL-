@@ -6,7 +6,7 @@ import request from '@/utils/request'
  * @returns Promise
  */
 export const findAllCategory = () => {
-  return request('/home/category/head', 'get')
+  return request('/category/head', 'get')
 }
 
 /**
@@ -29,7 +29,7 @@ export const findSubCategoryFilter = (id) => {
 
 /**
  * 获取分类下的商品（带筛选条件）
- * @param {Object} params - 可参考接口文档
+ * @param {Object} params 
  */
 export const findSubCategoryGoods = (params) => {
   return request('/category/goods/temporary', 'post', params)

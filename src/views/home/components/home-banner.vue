@@ -1,6 +1,6 @@
 <template>
   <div class="home-banner">
-    <XtxCarousel :sliders="sliders" auto-play />
+    <XxmCarousel :sliders="sliders" auto-play />
   </div>
 </template>
 <script>
@@ -35,10 +35,10 @@ export default {
     padding-left: 250px;
   }
   ::v-deep a:hover {
-    background-color: @xtxColor;
+    background-color: @themeColor;
   }
   ::v-deep .carousel-indicator span.active {
-    background-color: @xtxColor;
+    background-color: @themeColor;
   }
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <button class="xtx-button ellipsis" :class="[size,type]">
+  <button class="xxm-button ellipsis" :class="[size,type]">
     <slot />
   </button>
 </template>
 <script>
 export default {
-  name: 'XtxButton',
+  name: 'xxm-button',
   props: {
     size: {
       type: String,
@@ -19,7 +19,7 @@ export default {
 }
 </script>
 <style scoped lang="less">
-.xtx-button {
+.xxm-button {
   appearance: none;
   border: none;
   outline: none;
@@ -54,14 +54,14 @@ export default {
   color: #666;
 }
 .primary {
-  border-color: @xtxColor;
-  background: @xtxColor;
+  border-color: @themeColor;
+  background: @themeColor;
   color: #fff;
 }
 .plain {
-  border-color: @xtxColor;
-  color: @xtxColor;
-  background: lighten(@xtxColor,50%);
+  border-color: @themeColor;
+  color: @themeColor;
+  background: lighten(@themeColor,50%);
 }
 .gray {
   border-color: #ccc;

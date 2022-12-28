@@ -1,12 +1,12 @@
 <template>
-  <div class="xtx-bread-item">
+  <div class="xxm-bread-item">
     <RouterLink v-if="to" :to="to"><slot /></RouterLink>
     <span v-else><slot /></span>
   </div>
 </template>
 <script>
 export default {
-  name: 'XtxBreadItem',
+  name: 'XxmBreadItem',
   props: {
     to: {
       type: [String, Object],

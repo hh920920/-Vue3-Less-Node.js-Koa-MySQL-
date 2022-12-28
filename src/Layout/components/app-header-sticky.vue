@@ -62,7 +62,7 @@ export default {
   .logo {
     width: 200px;
     height: 80px;
-    background: url(../assets/images/logo.jpg) no-repeat  right 2px;
+    background: url(../../assets/images/logo.jpg) no-repeat  right 2px;
     background-size: 160px auto;
   }
   .right {
@@ -70,14 +70,14 @@ export default {
     display: flex;
     text-align: center;
     padding-left: 40px;
-    border-left: 2px solid @xtxColor;
+    border-left: 2px solid @themeColor;
     a {
       width: 38px;
       margin-right: 40px;
       font-size: 16px;
       line-height: 1;
       &:hover {
-        color: @xtxColor;
+        color: @themeColor;
       }
     }
   }

@@ -15,7 +15,7 @@ export const findRelGoods = (id, limit = 16) => {
  * @param {Number} limit - 获取个数
  */
  export const findHotGoods = ({id,type, limit = 3}) => {
-    return request('/goods/hot', 'get', {id, type, limit })
+    return request('/goods/hot', 'get', { id, type, limit })
   }
 
 /**

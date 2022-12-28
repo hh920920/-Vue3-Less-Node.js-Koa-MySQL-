@@ -1,7 +1,7 @@
 <script>
 import { h } from 'vue'
 export default {
-  name: 'XtxBread',
+  name: 'XxmBread',
   render () {
     // 用法
     // 1. template 标签去除，单文件组件
@@ -18,21 +18,21 @@ export default {
     const dymanicItems = []
     items.forEach((item, i) => {
       // 对插槽节点进行判断（是XtxBreadItem和Transition才进行组装）
-      if (item.type.name === 'XtxBreadItem' || item.type.displayName === 'Transition') {
+      if (item.type.name === 'XxmBreadItem' || item.type.displayName === 'Transition') {
         dymanicItems.push(item)
         if (i < (items.length - 1)) {
           dymanicItems.push(h('i', { class: 'iconfont icon-angle-right' }))
         }
       }
     })
-    return h('div', { class: 'xtx-bread' }, dymanicItems)
+    return h('div', { class: 'xxm-bread' }, dymanicItems)
   }
 }
 </script>
 
 <style lang='less'>
 // 去除 scoped 属性，目的：然样式作用到xtx-bread-item组件
-.xtx-bread{
+.xxm-bread{
   display: flex;
   padding: 25px 10px;
   // ul li:last-child {}
@@ -44,7 +44,7 @@ export default {
       color: #666;
       transition: all .4s;
       &:hover {
-        color: @xtxColor;
+        color: @themeColor;
       }
     }
   }
@@ -53,10 +53,6 @@ export default {
     margin-left: 5px;
     margin-right: 5px;
     line-height: 22px;
-    // 样式的方式，不合理
-    // &:last-child {
-    //   display: none;
-    // }
   }
 }
 </style>

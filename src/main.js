@@ -13,6 +13,6 @@ import 'normalize.css'
 import '@/assets/styles/common.less'
 
 // 使用自定骨架屏插件
-import ui from './components/library'
+import ui from './components'
 
 createApp(App).use(store).use(router).use(ui).use(ElementUI).mount('#app')

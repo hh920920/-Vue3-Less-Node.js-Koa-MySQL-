@@ -3,7 +3,7 @@
     <HomePanel :title="cate.name" v-for="cate in list" :key="cate.id">
       <template v-slot:right>
         <div class="sub">
-          <RouterLink v-for="sub in cate.children" :key="sub.id" :to="`/category/sub/${sub.id}`">{{sub.name}}</RouterLink>
+          <RouterLink v-for="sub in cate.children" :key="sub.id" :to="`/category/sub/${sub.children_id}`">{{sub.name}}</RouterLink>
         </div>
         <XtxMore :path="`/category/${cate.id}`" />
       </template>
@@ -30,15 +30,30 @@ import HomePanel from './home-panel'
 import HomeGoods from './home-goods'
 import { findGoods } from '@/api/home'
 import { useLazyData } from '@/hooks'
+import { ref, watch } from 'vue'
 export default {
   name: 'HomeProduct',
   components: { HomePanel, HomeGoods },
-  setup () {
+  setup() {
+    const list = ref([])
     const { target, result } = useLazyData(findGoods)
+
+    watch(result, (newValue,oldValue) => {
+      list.value = newValue.slice(0,4).map((item,index) => {
+        return {
+        id: item.category_id,
+        name: item.name,
+        picture: item.picture,
+        saleInfo: item.saleInfo,
+        children: item.children,
+        goods: item.goods.slice(0, 8)
+      }
+      })
+    })
 
     return {
       target,
-      list: result
+      list
     }
   }
 }
@@ -55,7 +70,7 @@ export default {
       font-size: 16px;
       border-radius: 4px;
       &:hover {
-        background: @xtxColor;
+        background: @themeColor;
         color: #fff;
       }
       &:last-child {

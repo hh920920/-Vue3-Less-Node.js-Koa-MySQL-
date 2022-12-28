@@ -1,5 +1,5 @@
 <template>
-  <router-link :to='path' class="xtx-more">
+  <router-link :to='path' class="xxm-more">
     <span>查看全部</span>
     <i class="iconfont icon-angle-right"></i>
   </router-link>
@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'XtxMore',
+  name: 'XxmMore',
   props: {
     path: {
       type: String,
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style scoped lang='less'>
-.xtx-more {
+.xxm-more {
   margin-bottom: 2px;
   span {
     font-size: 16px;
@@ -35,7 +35,7 @@ export default {
   }
   &:hover {
     span,i {
-      color: @xtxColor;
+      color: @themeColor;
     }
   }
 }

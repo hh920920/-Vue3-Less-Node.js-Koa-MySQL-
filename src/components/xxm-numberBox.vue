@@ -1,5 +1,5 @@
 <template>
-  <div class="xtx-numbox">
+  <div class="xxm-numbox">
     <div class="label" v-if="label">{{label}}</div>
     <div class="numbox">
       <a href="javascript:;" :class="{activeLeft}" @click="changeNum(-1)">-</a>
@@ -13,7 +13,7 @@
 import { useVModel } from '@vueuse/core'
 import { ref } from 'vue'
 export default {
-  name: 'XtxNumbox',
+  name: 'XxmNumbox',
   props: {
     label: {
       type: String
@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.xtx-numbox {
+.xxm-numbox {
   display: flex;
   align-items: center;
   .label {
@@ -83,7 +83,7 @@ export default {
     height: 30px;
     border: 1px solid #e4e4e4;
     &:hover {
-       border: 1px solid @xtxColor;
+       border: 1px solid @themeColor;
     }
     display: flex;
     > a {

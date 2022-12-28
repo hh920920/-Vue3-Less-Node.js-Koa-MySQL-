@@ -69,10 +69,10 @@ export default {
       position: relative;
 
       &:hover{
-        color: @xtxColor;
+        color: @themeColor;
       }
       &.active {
-        color: @xtxColor;
+        color: @themeColor;
 
         &:before {
           display: block;
@@ -88,7 +88,7 @@ export default {
         position: absolute;
         top: 19px;
         left: -16px;
-        background-color: @xtxColor;
+        background-color: @themeColor;
       }
     }
   }
