@@ -2,7 +2,7 @@
   <div class="home-new">
     <HomePanel title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
       <template #right>
-        <XtxMore path="/" />
+        <XxmMore path="/" />
       </template>
       <!-- 面板内容 -->
       <div ref="target" style="position: relative;height: 406px;">
@@ -32,10 +32,11 @@ export default {
   components: { HomePanel, HomeSkeleton },
   setup () {
     // const goods = ref([])
-    // findNew().then(data => {
-    //   goods.value = data.result
-    // })
+    findNew().then(data => {
+      // goods.value = data.result
+    })
     const { target, result } = useLazyData(findNew)
+    
     return { goods: result, target }
   }
 }

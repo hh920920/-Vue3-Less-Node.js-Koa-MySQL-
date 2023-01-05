@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'xxm-button',
+  name: 'XxmButton',
   props: {
     size: {
       type: String,

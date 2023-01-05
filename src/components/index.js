@@ -29,34 +29,7 @@ export default {
             app.component(component.name, component)
         })
 
-        // 定义指令
-        defineDirective(app)
         // 如果你想挂载全局的属性，能够通过组件实例调用的属性   this.$message
         app.config.globalProperties.$message = Message // 原型函数
     }
-}
-
-const defineDirective = (app) => {
-    // 1.图片懒加载指令 v-lazyload
-    // 原理：先存储图片地址不挂在src上，当图片进入可视区，将你存储的图片地址给图片元素
-    app.directive('lazyload', {
-        // vue 2.0 监听使用指令的DOM是否创建好，钩子函数：inserted
-        // vue 3.0 的指令拥有的钩子函数和组件一样，使用指令的DOM是否创建好，钩子函数：mounted
-        mounted(el, binding) {
-            // 2. 创建一个观察对象，来观察当前使用指令的元素
-            const observer = new IntersectionObserver(([{ isIntersecting }]) => {
-                if (isIntersecting) {
-                    // console.log('进入可视区', el)
-                    observer.unobserve(el)
-                    el.onerror = () => {
-                        el.src = defaultImg
-                    }
-                    el.src = binding.value
-                }
-            }, {
-                threshold: 0.01
-            })
-            observer.observe(el)
-        }
-    })
 }

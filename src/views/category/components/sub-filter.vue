@@ -123,7 +123,7 @@ export default {
       }
     }
   }
-  .xtx-skeleton {
+  .xxm-skeleton {
     padding: 10px 0;
   }
 }

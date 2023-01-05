@@ -5,7 +5,7 @@
         <div class="sub">
           <RouterLink v-for="sub in cate.children" :key="sub.id" :to="`/category/sub/${sub.children_id}`">{{sub.name}}</RouterLink>
         </div>
-        <XtxMore :path="`/category/${cate.id}`" />
+        <XxmMore :path="`/category/${cate.id}`" />
       </template>
       <div class="box">
         <RouterLink class="cover" to="/">

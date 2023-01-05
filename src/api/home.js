@@ -23,7 +23,7 @@ export const findBanner = () => {
  * @returns Promise
  */
 export const findNew = (limit) => {
-  return request('/home/freshGood', 'get', {limit})
+  return request('/home/freshGood', 'get', {limit: 4})
 }
 
 /**

@@ -11,7 +11,7 @@
 
 <script>
 import { ref } from 'vue'
-import { findRelGoods } from '@/api/goods'
+import { findRelGoods } from '@/api/product'
 export default {
   // 同类推荐，猜你喜欢
   name: 'GoodsRelevant',

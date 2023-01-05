@@ -2,8 +2,8 @@
   <div class='sub-sort'>
     <div class="sort">
       <a :class="{active:sortParams.sortField===null}" @click="changeSort(null)" href="javascript:;">默认排序</a>
-      <a :class="{active:sortParams.sortField==='publishTime'}" @click="changeSort('publishTime')" href="javascript:;">最新商品</a>
-      <a :class="{active:sortParams.sortField==='orderNum'}" @click="changeSort('orderNum')" href="javascript:;">最高人气</a>
+      <a :class="{active:sortParams.sortField==='createdAt'}" @click="changeSort('createdAt')" href="javascript:;">最新商品</a>
+      <a :class="{active:sortParams.sortField==='salesCount'}" @click="changeSort('salesCount')" href="javascript:;">销量最多</a>
       <a :class="{active:sortParams.sortField==='evaluateNum'}" @click="changeSort('evaluateNum')" href="javascript:;">评论最多</a>
       <a @click="changeSort('price')" href="javascript:;">
         价格排序
@@ -18,14 +18,14 @@
   </div>
 </template>
 <script>
-import { reactive } from 'vue'
+import { reactive, ref, watch } from 'vue'
 export default {
   name: 'SubSort',
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     // 1. 根据后台需要的参数定义数据对象
     // 2. 根据数据对象，绑定组件（复选框，排序按钮）
     // 3. 在操作排序组件的时候，需要反馈给数据对象
-    // sortField====>publishTime,orderNum,price,evaluateNum
+    // sortField====>latestTime,salesNum,price,evaluateNum
     // sortMethod====>asc为正序 desc为倒序
     const sortParams = reactive({
       inventory: false,
@@ -51,6 +51,7 @@ export default {
         sortParams.sortField = sortField
         sortParams.sortMethod = null
       }
+      // 触发 sort-change 事件
       emit('sort-change', sortParams)
     }
 

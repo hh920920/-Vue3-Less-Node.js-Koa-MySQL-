@@ -1,17 +1,13 @@
 <template>
-  <div class="xxm-goods-page" v-if="goods">
-    <!-- 加载中动画 -->
-    <div class="loading container" v-if="loading">
-      <div class="loadingImg"></div>
-    </div>
-    <div class="container" v-else>
+  <div class='xxm-goods-page' v-if="goods">
+    <div class="container">
       <!-- 面包屑 -->
-      <xxm-bread>
-        <xxm-bread-item to="/">首页</xxm-bread-item>
-        <xxm-bread-item to="/category/'+goods.categories[0].id">{{goods.categories[0].name}}</xxm-bread-item>
-        <xxm-bread-item to="/category/sub/'+goods.categories[1].id">{{goods.categories[1].name}}</xxm-bread-item>
-        <xxm-bread-item to="/">{{goods.name}}</xxm-bread-item>
-      </xxm-bread>
+      <XxmBread>
+        <XxmBreadItem to="/">首页</XxmBreadItem>
+        <XxmBreadItem :to="`/category/${goods.categories[0].parents[0].category_id}`">{{goods.categories[0].parents[0].name}}</XxmBreadItem>
+        <XxmBreadItem :to="`/category/sub/${goods.categories[0].children_id}`">{{goods.categories[0].name}}</XxmBreadItem>
+        <XxmBreadItem>{{goods.name}}</XxmBreadItem>
+      </XxmBread>
       <!-- 商品信息 -->
       <div class="goods-info">
         <div class="media">
@@ -19,131 +15,137 @@
           <GoodsSales />
         </div>
         <div class="spec">
-          <GoodsInfo :goods="goods" />
+          <GoodsName :goods="goods" />
+          <!-- sku组件  -->
           <GoodsSku :goods="goods" @change="changeSku" />
-          <!-- 选择数量 -->
-          <XxmNumbox label="数量" v-model="num" :min="1" :max="goods.inventory" />
-          <XxmButton type="primary" @click="insertCart()" style="margin-top:20px;margin-left:6
-           0px">加入购物车
-           </XxmButton>
+          <!-- 数量选择组件 -->
+          <XxmNumbox label="数量" v-model="num" :max="goods.inventory" @change="changePrice" />
+          <!-- 按钮组件 -->
+          <XxmButton @click="insertCart()" type="primary" style="margin-top:20px">加入购物车</XxmButton>
         </div>
       </div>
-      <!-- 商品推荐 -->
-      <GoodsRelevant :goodsId="goods.id" />
-      <!-- 商品详情 -->
+      <!-- 同类商品推荐 -->
+      <!-- <GoodsRelevant :goodsId="goods.id" /> -->
+            <!-- 商品详情 -->
       <div class="goods-footer">
         <div class="goods-article">
-          <!-- 商品 + 评价 -->
-          <GoodsTabs :goods="goods" />
+          <!-- 商品+评价 -->
+          <GoodsTabs />
           <!-- 注意事项 -->
           <GoodsWarn />
         </div>
-        <!-- 24h 热榜 + 专题推荐 -->
+        <!-- 商品推荐 -->
         <div class="goods-aside">
-          <GoodsHot :goodsId="goods.id" :type="1" />
-          <GoodsHot :goodsId="goods.id" :type="2" />
+          <GoodsRecommend />
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
-import GoodsRelevant from './components/goods-relevant.vue'
-import GoodsImage from './components/goods-image.vue'
-import GoodsSales from './components/goods-sales.vue'
-import GoodsInfo from './components/goods-info.vue'
-import GoodsSku from './components/goods-sku.vue'
-import GoodsTabs from './components/goods-tabs.vue'
-import GoodsHot from './components/goods-hot'
-import GoodsWarn from './components/goods-warn.vue'
-import { nextTick, ref, watch, provide } from 'vue'
+// import GoodsRelevant from './components/goods-relevant'
+import GoodsImage from './components/goods-image'
+import GoodsSales from './components/goods-sales'
+import GoodsName from './components/goods-info'
+import GoodsSku from './components/goods-sku'
+import GoodsTabs from './components/goods-tabs'
+import GoodsRecommend from './components/goods-recommend'
+import GoodsWarn from './components/goods-warn'
+import { nextTick, provide, ref, watch } from 'vue'
 import { findGoods } from '@/api/product'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import Message from '@/components/Message'
-
 export default {
-  name: 'XxmGoodsPage',
-  components: { GoodsRelevant, GoodsImage, GoodsSales, GoodsInfo, GoodsSku, GoodsTabs, GoodsHot, GoodsWarn },
+  name: 'XxxmGoodsPage',
+  components: { GoodsImage, GoodsSales, GoodsName, GoodsSku, GoodsTabs, GoodsWarn, GoodsRecommend },
   setup() {
     const goods = useGoods()
-
-    const loading = ref(true)
-
-    // 商品初始数量
-    let num = ref(1)
-
+    const newPrice = ref(0.00)
+    const selected = ref(false)
+    const skus = ref(null)
     const changeSku = (sku) => {
-      // 修改商品的现价原价以及库存信息
-      goods.value.price = sku.price
-      goods.value.oldPrice = sku.oldPrice
-      goods.value.inventory = sku.inventory
-      currSku.value = sku
+      skus.value = sku
+      // 修改商品的现价原价库存信息
+      if (sku.skuId) {
+        goods.value.price = sku.price
+        goods.value.oldPrice = sku.oldPrice
+        goods.value.inventory = sku.inventory
+        selected.value = true
+        newPrice.value = sku.price
+      } else {
+        // 记录选择后的sku，可能有数据，可能没有数据{}
+        selected.value = false
+        currSku.value = sku
+      }
+
     }
 
-    // 加入购物车逻辑
-    const currSku = ref(null)
-    const store = useStore()
-    const token = store.getters['user/getToken']
-    const { push } = useRouter()
-
-    const insertCart = (() => {
-      if (!currSku.value) {
-        return Message({ text: '请选择商品规格', type: 'warn' })
-      }
-      if (num.value > goods.inventory) {
-        return Message({ text: '库存不足', type: 'warn' })
-      }
-      if (token === undefined || token === '') {
-        push('/login')
-      } else {
-        store.dispatch('cart/insertCart', {
-          id: goods.value.id,
-          skuId: currSku.value.skuId,
-          name: goods.value.name,
-          picture: goods.value.mainPictures[0],
-          price: currSku.value.price,
-          nowPrice: currSku.value.price,
-          count: num.value,
-          attrsText: currSku.value.specsText,
-          selected: true,
-          isEffective: true,
-          stock: currSku.value.inventory
-        }).then(() => {
-          Message({ text: '加入购物车成功', type: 'success' })
-        })
-      }
-    })
-
+    // 提供goods数据给后代组件使用
     provide('goods', goods)
 
-    watch(goods, (newValue, oldValue) => {
-      if (goods.value != null) {
-        // 当商品信息变化时，把currSku的值重设
-        currSku.value = null
-        loading.value = true
-        // loading加载1秒再显示商品
-        setTimeout(() => {
-          loading.value = false
-        }, 1000)
+    // 选择的数量
+    const num = ref(1)
+    const newNum = ref(1)
+
+    // 当数量变化时改变显示价格
+    const changePrice = (count) => {
+      newNum.value = count
+      // goods.value.price = newPrice.value * count
+    }
+   
+    watch([skus,selected, newNum], (newValue, oldValue) => {
+      if (newValue[1] === true) {
+        goods.value.price = parseFloat(newPrice.value * newNum.value).toFixed(2)
+      } else {
+        goods.value.price = newPrice.value
       }
     })
 
-    return { goods, changeSku, num, insertCart, loading }
+    // 加入购物车
+    const store = useStore()
+    const currSku = ref(null)
+    const insertCart = () => {
+      if (currSku.value && currSku.value.skuId) {
+        // id skuId name attrsText picture price nowPrice selected stock count isEffective
+        const { skuId, specsText: attrsText, inventory: stock } = currSku.value
+        const { id, name, price, mainPictures } = goods.value
+        store.dispatch('cart/insertCart', {
+          skuId,
+          attrsText,
+          stock,
+          id,
+          name,
+          price,
+          nowPrice: price,
+          picture: mainPictures[0],
+          selected: true,
+          isEffective: true,
+          count: num.value
+        }).then(() => {
+          Message({ type: 'success', text: '加入购物车成功' })
+        })
+      } else {
+        Message({ text: '请选择完整规格' })
+      }
+    }
+
+    return { goods, changeSku, num, insertCart, changePrice }
   }
 }
 // 获取商品详情
 const useGoods = () => {
   // 出现路由地址商品ID发生变化，但是不会重新初始化组件
   const goods = ref(null)
-  let route = useRoute()
+  const route = useRoute()
   watch(() => route.params.id, (newVal) => {
     if (newVal && `/product/${newVal}` === route.path) {
       findGoods(route.params.id).then(data => {
-        // 让商品数据为null让后使用v-if的组件可以重新销毁和创建
+        // 让商品数据为null然后使用v-if的组件可以重新销毁和创建
         goods.value = null
         nextTick(() => {
-          goods.value = data.result
+          goods.value = data.result[0]
         })
       })
     }
@@ -151,20 +153,8 @@ const useGoods = () => {
   return goods
 }
 </script>
+
 <style scoped lang='less'>
-.loading {
-  height: 400px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  .loadingImg {
-    width: 100px;
-    height: 100px;
-    background-color: aqua;
-    background: url(../../assets/images/loading.gif) no-repeat center;
-  }
-}
 .goods-info {
   min-height: 600px;
   background: #fff;
@@ -190,10 +180,5 @@ const useGoods = () => {
     width: 280px;
     min-height: 1000px;
   }
-}
-.goods-warn {
-  min-height: 600px;
-  background: #fff;
-  margin-top: 20px;
 }
 </style>

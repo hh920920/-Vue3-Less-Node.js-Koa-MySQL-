@@ -2,23 +2,39 @@
   <!-- 商品详情组件 -->
   <div class="goods-detail">
     <ul class="attrs">
-      <li class="detail" v-for="item in goods.details.properties" :key="item">
+      <li class="detail" v-for="item in properties" :key="item">
         <span class="name">{{ item.name }}</span>
         <span class="value">{{ item.value }}</span>
       </li>
     </ul>
-    <!-- 图片 -->
-    <img v-for="item in goods.details.pictures" :src="item" alt="" :key="item">
+    <!-- 详情图片区 -->
+    <div v-for="item in pictureList" :key="item">
+      <!-- 使用图片懒加载 -->
+      <img v-lazyload="item.picture" alt="" />
+    </div>
+    <img>
+
   </div>
 </template>    
 <script>
-import { inject } from 'vue-demi'
+import { findGoodsDetails } from '@/api/product'
+import { useRoute } from 'vue-router'
+import { ref, nextTick } from 'vue'
 export default {
   name: 'GoodsDetail',
   setup() {
-    const goods = inject('goods')
+    const route = useRoute()
+    const pictureList = ref([])
+    const properties = ref(null)
+    findGoodsDetails(route.params.id).then(data => {
+      nextTick(() => {
+        properties.value = data.result[1].properties
+        pictureList.value = data.result[0].pictures
+      })
+    })
     return {
-      goods
+      pictureList,
+      properties
     }
   }
 }

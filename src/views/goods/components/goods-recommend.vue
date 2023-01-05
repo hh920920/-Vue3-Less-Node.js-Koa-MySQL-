@@ -1,45 +1,28 @@
 <template>
   <div class="goods-hot">
-    <h3>{{title}}</h3>
-     <div v-if="goodsList">
-      <GoodsItem v-for="item in goodsList" :key="item.id" :goods="item"/>  
+    <h3>商品推荐</h3>
+     <div v-for="item in goodsList" :key="item.id">
+      <GoodsItem v-for="goods in item.goods" :key="goods.id" :goods="goods"/>  
     </div>  
   </div>
 </template>
 <script>
 import { computed, ref } from 'vue'
 import GoodsItem from '../../category/components/goods-item'
-import { findHotGoods } from '@/api/goods'
+import { findRelevantGoods } from '@/api/product'
 export default {
   name: 'GoodsHot',
   components: {
     GoodsItem
   },
-  props: {
-    type: {
-      type: Number,
-      default: 1
-    },
-    goodsId: {
-      type: String
-    }  
-  },
-  setup (props) {
-   // 处理标题
-    const titleObj = { 1: '24小时热销榜', 2: '周热销榜', 3: '总热销榜' }
-    const title = computed(() => {
-      return titleObj[props.type]
-    })
+  setup () {
+    const goodsList = ref(null)
     // 商品列表
-    const goodsList = ref([])
-    findHotGoods({ id: props.goodsId, type: props.type }).then(data => {
-      goodsList.value = data.result.map(item => {
-        item.tag = item.desc
-        return item
-      })
+    findRelevantGoods().then(({result}) => {
+      goodsList.value = result
     })
 
-    return { title, goodsList }
+    return { goodsList }
   }
 }
 </script>
@@ -57,7 +40,7 @@ export default {
   }
   ::v-deep .goods-item {
     background: #fff;
-    width: 100%;
+    width: 80%;
     margin-bottom: 10px;
     
     img {

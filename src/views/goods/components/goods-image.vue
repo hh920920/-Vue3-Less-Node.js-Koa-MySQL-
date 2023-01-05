@@ -1,16 +1,16 @@
 <template>
   <div class="goods-image">
     <!-- 大图 -->
-    <div class="large" v-if="show" :style="[{backgroundImage:`url(${images[currIndex]})`}, largePosition]"></div>
+    <div class="large" v-if="show" :style="[{backgroundImage:`url(${imagesList[currIndex]})`}, largePosition]"></div>
     <!-- 中图 -->
     <div class="middle" ref="target">
-      <img :src="images[currIndex]" alt="">
+      <img :src="imagesList[currIndex]" alt="">
       <!-- 遮罩 -->
       <div class="layer" v-if="show" :style="layerPosition"></div>
     </div>
     <!-- 小图 -->
     <ul class="small">
-      <li v-for="(img,i) in images" :key="img" :class="{active:i===currIndex}">
+      <li v-for="(img,i) in imagesList" :key="img" :class="{active:i===currIndex}">
         <img @mouseenter="currIndex=i" :src="img" alt="">
       </li>
     </ul>
@@ -30,6 +30,11 @@ export default {
   setup(props) {
     // 当前图片索引
     const currIndex = ref(0)
+    const imagesList = ref([])
+
+    props.images.forEach(rs => {
+      imagesList.value.push(rs.picture);
+    })
 
     // 1. 是否显示遮罩和大图
     const show = ref(false)
@@ -49,40 +54,40 @@ export default {
     // elementX 鼠标基于容器左上角X轴偏移
     // elementY 鼠标基于容器左上角Y轴偏移
     // isOutside 鼠标是否在模版容器之外
-    const { elementX, elementY, isOutside }  = useMouseInElement(target)
-    watch( [elementX, elementY, isOutside], () => {
-        // 如果在范围内，isOutside.value 返回的值是 false
-        show.value = !isOutside.value
+    const { elementX, elementY, isOutside } = useMouseInElement(target)
+    watch([elementX, elementY, isOutside], () => {
+      // 如果在范围内，isOutside.value 返回的值是 false
+      show.value = !isOutside.value
 
-        // 坐标值
-        const position = {
-            x: 0,
-            y: 0
-        }
-        // 控制X轴方向的定位 0-200 之间
-        if (elementX.value < 100) {
-            position.x = 0
-        } else if (elementX.value > 300) {
-            position.x = 200
-        } else {
-            // 从遮罩中间开始移动      
-            position.x = elementX.value - 100
-        }
+      // 坐标值
+      const position = {
+        x: 0,
+        y: 0
+      }
+      // 控制X轴方向的定位 0-200 之间
+      if (elementX.value < 100) {
+        position.x = 0
+      } else if (elementX.value > 300) {
+        position.x = 200
+      } else {
+        // 从遮罩中间开始移动      
+        position.x = elementX.value - 100
+      }
 
-        // 控制Y轴方向的定位 
-        if (elementY.value < 100) {
-            position.y = 0
-        } else if (elementY.value > 300) {
-            position.y = 200
-        } else {
-            position.y = elementY.value - 100
-        }
+      // 控制Y轴方向的定位 
+      if (elementY.value < 100) {
+        position.y = 0
+      } else if (elementY.value > 300) {
+        position.y = 200
+      } else {
+        position.y = elementY.value - 100
+      }
 
-        // 给样式赋值
-        layerPosition.left = position.x + 'px'
-        layerPosition.top = position.y + 'px'
-        largePosition.backgroundPositionX = -position.x * 2 + 'px'
-        largePosition.backgroundPositionY = -position.y * 2 + 'px'
+      // 给样式赋值
+      layerPosition.left = position.x + 'px'
+      layerPosition.top = position.y + 'px'
+      largePosition.backgroundPositionX = -position.x * 2 + 'px'
+      largePosition.backgroundPositionY = -position.y * 2 + 'px'
     })
 
     return {
@@ -90,7 +95,8 @@ export default {
       show,
       target,
       layerPosition,
-      largePosition
+      largePosition,
+      imagesList
     }
   }
 }

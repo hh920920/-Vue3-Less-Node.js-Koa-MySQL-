@@ -20,7 +20,7 @@ export const findTopCategory = (id) => {
 
 /**
  * 获取二级类目的筛选条件数据
- * @param {String} id - 二级类目ID
+ * @param {Number} id - 二级类目ID
  * @returns
  */
 export const findSubCategoryFilter = (id) => {
@@ -30,7 +30,8 @@ export const findSubCategoryFilter = (id) => {
 /**
  * 获取分类下的商品（带筛选条件）
  * @param {Object} params 
+ * @returns
  */
 export const findSubCategoryGoods = (params) => {
-  return request('/category/goods/temporary', 'post', params)
+  return request('/category/goods/temporary', 'get', params)
 }

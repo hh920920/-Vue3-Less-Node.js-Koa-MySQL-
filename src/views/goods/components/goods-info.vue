@@ -1,6 +1,6 @@
 <template>
   <p class="g-name">{{ goods.name }}</p>
-  <p class="g-desc">{{ goods.desc }}</p>
+  <p class="g-desc">{{ goods.de_sc }}</p>
   <p class="g-price">
     <span>{{ goods.price }}</span>
     <span>{{ goods.oldPrice }}</span>
@@ -13,7 +13,7 @@
     <dl>
       <dt>配送</dt>
       <dd>至
-        <XtxCity @change="changeCIty" :fullLocation=fullLocation />
+        <XxmCity @change="changeCIty" :fullLocation=fullLocation />
       </dd>
     </dl>
     <dl>

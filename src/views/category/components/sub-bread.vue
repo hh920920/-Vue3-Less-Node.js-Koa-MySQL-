@@ -31,7 +31,7 @@ export default {
             // 设置二级类目
             obj.sub = {id: sub.children_id, name: sub.name}
             // 设置一级类目
-            obj.top = {id: top.children_id, name: top.name}
+            obj.top = {id: top.category_id, name: top.name}
           }
         })
       })

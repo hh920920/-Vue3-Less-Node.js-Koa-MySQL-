@@ -55,7 +55,7 @@
 </template>
 <script>
 import { inject, reactive, ref, watch } from 'vue'
-import { findGoodsCommentInfo, findGoodsCommentList } from '@/api/goods'
+import { findGoodsCommentInfo, findGoodsCommentList } from '@/api/product'
 import GoodsCommentImage from './goods-comment-image'
 export default {
   name: 'GoodsComment',

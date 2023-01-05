@@ -28,7 +28,7 @@
           <p>共 {{$store.getters['cart/validTotal']}} 件商品</p>
           <p>&yen;{{$store.getters['cart/validAmount']}}</p>
         </div>
-        <XtxButton @click="$router.push('/cart')" type="plain">去购物车结算</XtxButton>
+        <XxmButton @click="$router.push('/cart')" type="plain">去购物车结算</XxmButton>
       </div>
     </div>
     <!-- 如果没登录，购物车没商品，则弹出此层 -->

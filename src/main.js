@@ -11,8 +11,10 @@ import 'element-plus/theme-chalk/index.css';//导入组件相关样式
 import 'normalize.css'
 // 2. 自定义的重置样式的公用样式
 import '@/assets/styles/common.less'
+// 引入图片懒加载文件
+import imgLazy from './hooks/lazyload'
 
 // 使用自定骨架屏插件
 import ui from './components'
 
-createApp(App).use(store).use(router).use(ui).use(ElementUI).mount('#app')
+createApp(App).use(store).use(router).use(ui).use(ElementUI).use(imgLazy).mount('#app')

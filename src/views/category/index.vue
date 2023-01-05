@@ -29,10 +29,10 @@
         <div class="head">
           <h3>- {{sub.name}} -</h3>
           <p class="tag">{{sub.de_sc}}</p>
-          <XxmMore :path="`/category/sub/${sub.id}`" />
+          <XxmMore :path="`/category/sub/${sub.children_id}`" />
         </div>
         <div class="body">
-          <GoodsItem v-for="goods in sub.chirldren_goods" :key="goods.goods_id" :goods="goods" />
+          <GoodsItem v-for="goods in sub.chirldren_goods.slice(0,5)" :key="goods.goods_id" :goods="goods" />
         </div>
       </div>
     </div>
@@ -49,8 +49,6 @@ export default {
   name: 'TopCategory',
   components: { GoodsItem },
   setup() {
-
-
     // 轮播图
     const sliders = ref([])
     findBanner().then(data => {
@@ -83,6 +81,7 @@ export default {
         return data.result[0].children
       })
     }
+    
     watch(() => route.params.id, (newVal) => {
       // newVal && getSubList() 加上一个严谨判断，在顶级类名下才发请求
       if (newVal && `/category/${newVal}` === route.path) getSubList()
@@ -140,7 +139,7 @@ export default {
     margin-top: 20px;
     position: relative;
     .head {
-      .xtx-more {
+      .xxm-more {
         position: absolute;
         top: 20px;
         right: 20px;
