@@ -1,4 +1,6 @@
-// 1、导入sequelize的连接
+/**
+ *  新鲜好物表
+ */
 const { DataTypes } = require('sequelize')
 const seq = require('../../db/seqConnection')
 

@@ -1,54 +1,71 @@
-// 1、导入sequelize的连接
+/**
+ *  商品表
+ */
 const { DataTypes } = require('sequelize')
 const seq = require('../../db/seqConnection')
 
-const HomeGoods = seq.define('category_goods', {
+const Goods = seq.define('goods', {
     goods_id: {
-        type: DataTypes.INTEGER(10),
+        type: DataTypes.INTEGER,
         allowNull: false,
         comment: '商品id',
     },
     name: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING,
         allowNull: false,
         comment: '商品名字',
     },
     de_sc: {
         type: DataTypes.STRING,
         allowNull: false,
-        comment: '商品描述',
+        comment: '描述',
+    },
+    oldPrice: {
+        type: DataTypes.DECIMAL(10,2),
+        allowNull: false,
+        comment: '原价格',
     },
     price: {
         type: DataTypes.DECIMAL(10,2),
         allowNull: false,
-        comment: '商品价格',
+        comment: '最新价格',
     },
     picture: {
         type: DataTypes.STRING,
         allowNull: false,
         comment: '商品图片',
     },
-    discount: {
-        type: DataTypes.DECIMAL(10,2),
+    salesCount: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        comment: '商品折扣',
+        comment: '销量',
     },
-    sales: {
-        type: DataTypes.INTEGER(10),
+    category_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        comment: '商品销量',
+        comment: '一级分类id'
+    },
+    children_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        comment: '所属二级分类id'
+    },
+    goods_status: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        comment: '商品状态：1上架，0下架'
     }
 },{
     // 默认情况下,Sequelize 使用数据类型 DataTypes.DATE 自动向每个模型添加 createdAt 和 updatedAt 字段. 这些字段会自动进行管理
     // 不想要就设置为 false
-    timestamps: false // 时间戳
+    timestamps: true // 时间戳
 }
 ) 
 
 // 强制同步数据库(创建数据表)  
-// HomeFreshGood.sync({
+// Goods.sync({
 //     force: true //如果存在表，true 则新建
 // })
 
 
-module.exports = HomeGoods
+module.exports = Goods

@@ -1,4 +1,6 @@
-// 1、导入sequelize的连接
+/**
+ *  首页轮播图表
+ */
 const { DataTypes } = require('sequelize')
 const seq = require('../../db/seqConnection')
 
@@ -19,7 +21,7 @@ const HomeBanner = seq.define('home_banner', {
         comment: '轮播图跳转链接',
     },
     type: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.INTEGER(2),
         allowNull: false,
         comment: '轮播图跳转类型(1页面、2H5、3小程序)',
     }

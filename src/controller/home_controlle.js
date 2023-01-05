@@ -17,7 +17,7 @@ class HomeController {
         const res = await getHomeBrand(limit)
         // 3. 返回结果
         ctx.body = {
-            code: 200,
+            code: 0,
             message: 'success',
             result: res,
         }
@@ -29,7 +29,7 @@ class HomeController {
         const res = await getHomeBanner()
         // 2. 返回结果
         ctx.body = {
-            code: 200,
+            code: 0,
             message: 'success',
             result: res,
         }
@@ -44,24 +44,23 @@ class HomeController {
         if (!isNaN(num)) {
             const res = await getHomeFreshGoods(parseInt(num))
             ctx.body = {
-                code: 200,
+                code: 0,
                 message: 'success',
                 result: res,
             }
         } else {
             ctx.body = {
-                code: 0,
+                code: 1,
                 message: '参数错误',
                 result: ''
             }
         }
     }
-
     // 首页人气推荐
     async hot(ctx, next) {
         const res = await getHomeHot()
         ctx.body = {
-            code: 200,
+            code: 0,
             message: 'success',
             result: res,
         }
@@ -76,13 +75,13 @@ class HomeController {
         if (!isNaN(num)) {
             const res = await getHomeSpecial(parseInt(num))
             ctx.body = {
-                code: 200,
+                code: 0,
                 message: 'success',
                 result: res,
             }
         } else {
             ctx.body = {
-                code: 0,
+                code: 1,
                 message: '参数错误',
                 result: ''
             }

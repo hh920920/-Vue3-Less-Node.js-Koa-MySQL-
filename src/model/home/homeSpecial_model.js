@@ -1,3 +1,6 @@
+/**
+ *  首页专题表
+ */
 const { DataTypes } = require('sequelize')
 const seq = require('../../db/seqConnection')
 

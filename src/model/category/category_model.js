@@ -1,4 +1,6 @@
-// 1、导入sequelize的连接
+/**
+ *  一级分类表
+ */
 const { DataTypes } = require('sequelize')
 const seq = require('../../db/seqConnection')
 
@@ -12,6 +14,11 @@ const Category = seq.define('categories', {
         type: DataTypes.STRING(20),
         allowNull: false,
         comment: '一级分类名字',
+    },
+    layer: { 
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        comment: '分类等级',
     },
     picture: {
         type: DataTypes.STRING,

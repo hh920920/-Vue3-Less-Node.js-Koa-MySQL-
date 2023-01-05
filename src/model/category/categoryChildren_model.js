@@ -1,4 +1,6 @@
-// 1、导入sequelize的连接
+/**
+ * 二级分类表
+ */
 const { DataTypes } = require('sequelize')
 const seq = require('../../db/seqConnection')
 
@@ -33,10 +35,10 @@ const category_children = seq.define('category_children', {
         allowNull: false,
         comment: '',
     },
-    parent: {
+    de_sc: {
         type: DataTypes.STRING,
         allowNull: false,
-        comment: '',
+        comment: ''
     },
     children: {
         type: DataTypes.STRING,

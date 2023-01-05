@@ -11,31 +11,32 @@ class CategoryController {
     async getCategory(ctx, next) {
         let res = await getCategory()
         ctx.body = {
+            code: 0,
             msg: '操作成功',
             result: res
         }
     }
 
-    // 获取顶级类目信息（children属性就是各个子分类）
+    // 通过一级分类id获取二级分类信息（children属性就是各个子分类）
     async getTopCategory(ctx, next) {
         const { id } = ctx.request.query
-        // let result = await getTopCategory( )
         // 返回结果
         if (!isNaN(id)) {
             const res = await getTopCategory(parseInt(id))
             ctx.body = {
-                code: 200,
+                code: 0,
                 message: 'success',
                 result: res
             }
         } else {
             ctx.body = {
-                code: 0,
-                message: '参数错误',
-                result: ''
+                code: 1,
+                message: 'error',
+                result: '参数错误'
             }
         }
     }
+
 
     // 获取二级类下目的分类规格信息
     async getCategorySpecs(ctx, next) {
@@ -51,42 +52,44 @@ class CategoryController {
             }
         } else {
             ctx.body = {
-                code: 0,
-                message: '参数错误',
-                result: ''
+                code: 1,
+                message: 'error',
+                result: '参数错误'
             }
         }
     }
 
-    // 获取二级类下目的商品
+    // 获取二级类下目的分类商品
     async getCategoryGoods(ctx, next) {
-        const data = ctx.request.body
-        const page = parseInt(data.page)
-        const pageSize = parseInt(data.pageSize)
-        const categoryId = parseInt(data.categoryId)
+        const info = ctx.request.query
+        const id = parseInt(info.categoryId)
+        const page = parseInt(info.page)
+        const pageSize = parseInt(info.pageSize)
         let startPage = 0
-
-        if (!isNaN(page) && !isNaN(pageSize) && !isNaN(categoryId)) {
-            if (page > 1) startPage = (page - 1) * pageSize
-            const { count, rows } = await getCategoryGoods(startPage, pageSize, categoryId)
+        let offset = 0
+        // 返回结果
+        if (!isNaN(id) && !isNaN(page) && !isNaN(pageSize)) {
+            if (page > 1) {
+                startPage = page > 1 ? page : 0
+                offset = (startPage - 1) * pageSize
+            }
+            const { count, rows } = await getCategoryGoods(id, offset, pageSize)
             ctx.body = {
                 code: 0,
-                msg: 'success',
-                counts: count, // 总条数
-                pages: Math.round(count / pageSize), // 总页数
-                page: page, // 起始页
-                pageSize: pageSize, // 每页条数
-                items: rows // 商品数据
+                message: 'success',
+                counts: count,
+                page: page,
+                pages: Math.ceil(count / pageSize),
+                pageSize: pageSize,
+                result: rows
             }
-
         } else {
             ctx.body = {
-                code: 0,
-                message: '参数错误',
-                result: ''
+                code: 1,
+                message: 'error',
+                result: '参数错误'
             }
         }
-
     }
 
 }

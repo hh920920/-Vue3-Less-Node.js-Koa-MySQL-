@@ -1,10 +1,9 @@
 const Category = require('../model/category/category_model')
 const CategoryChildren = require('../model/category/categoryChildren_model')
-const CategoryChildrenGoods = require('../model/category/categoryChildrenGoods_model')
+const CategoryChildrenGoods = require('../model/goods/goods__model')
 const CategorySpecs = require('../model/category/category_specs')
 const CategorySpecsValue = require('../model/category/category_specs_value')
 const HomeBrands = require('../model/home/homeBrand_model')
-const CategoryGoods = require('../model/category/category_goods__model')
 
 Category.hasMany(CategoryChildren, { foreignKey: 'category_id', sourceKey: 'category_id', as: 'children' })
 CategoryChildren.belongsTo(Category, { foreignKey: 'category_id', targetKey: 'category_id' })
@@ -56,11 +55,11 @@ class CategoryService {
                 attributes: ['category_id', 'name'],
                 include: [{
                     model: CategoryChildren,
-                    attributes: ['children_id', 'name'],
+                    attributes: ['children_id', 'name', 'de_sc'],
                     as: 'children',
                     include: [{
                         model: CategoryChildrenGoods,
-                        attributes: ['goods_id', 'name', 'de_sc', 'price', 'picture'],
+                        // attributes: ['goods_id', 'name', 'de_sc', 'price', 'picture'],
                         as: 'chirldren_goods'
                     }]
                 }],
@@ -108,20 +107,19 @@ class CategoryService {
         }
     }
 
-    // 通过id获取二级类目下的商品
-    async getCategoryGoods(startPage, pageSize, id) {
+    // 通过id获取二级类目下的分类商品
+    async getCategoryGoods(id, offset, pageSize) {
         try {
-            // count - 一个整数 - 与查询匹配的记录总数
-            // rows - 一个数组对象 - 获得的记录
-            let { count, rows } = await CategoryGoods.findAndCountAll({
+            const { count, rows } = await CategoryChildrenGoods.findAndCountAll({
+                // attributes: ['id', 'goods_id', 'name', 'de_sc', 'oldPrice', 'price', 'picture', 'salesCount' ,'goods_status'],
                 where: {
-                    children_id: id
+                  children_id: id
                 },
-                offset: startPage,
+                offset: offset,
                 limit: pageSize
-            })
+              })
 
-            return { count, rows}
+            return { count, rows }
 
         } catch (error) {
             console.error(error)

@@ -1,160 +1,341 @@
 {
-    "msg": "操作成功",
-    "result": {
-        "id": "19999999001",
-        "name": "乐器杂项",
-        "picture": null,
-        "parentId": "19999999",
-        "parentName": "杂项",
-        "goods": [
-            {
-                "id": "3993375",
-                "name": "云音乐定制IN系列intar民谣木吉他",
-                "desc": "云音乐2020in系列全新设计intar民谣木吉他",
-                "price": "589.00",
-                "picture": "https://yanxuan-item.nosdn.127.net/4d825431a3587edb63cb165166f8fc76.jpg",
-                "discount": null,
-                "orderNum": 127
-            },
-            {
-                "id": "3856000",
-                "name": "初学入门山羊皮8/10寸雕刻实木非洲鼓",
-                "desc": "充满异域风情的打击乐器非洲鼓，有着广泛的学习人群以及不俗的表现力度，是各种舞会晚会的常选乐器品种",
-                "price": "168.00",
-                "picture": "https://yanxuan-item.nosdn.127.net/e7eb0d897af1dd37cb1adb1b20a57fc1.jpg",
-                "discount": null,
-                "orderNum": 264
-            },
-            {
-                "id": "3494003",
-                "name": "网易云音乐易系列尤克里里入门款23寸",
-                "desc": "网易云音乐定制胡桃木/桃花芯二色可选入门级合板琴23寸",
-                "price": "319.00",
-                "picture": "https://yanxuan-item.nosdn.127.net/669dba51e7d2cc697333b05ea407a1ed.png",
-                "discount": null,
-                "orderNum": 226
-            },
-            {
-                "id": "3458035",
-                "name": "混合全单初学者入门民谣木吉他",
-                "desc": "新型材质琴体音色稳定",
-                "price": "899.00",
-                "picture": "https://yanxuan-item.nosdn.127.net/73a9f37c20407482fc839f0ee0215cbc.png",
-                "discount": null,
-                "orderNum": 119
-            },
-            {
-                "id": "1673031",
-                "name": "儿童88键电子智能钢琴",
-                "desc": "家庭学琴首选",
-                "price": "4999.00",
-                "picture": "https://yanxuan-item.nosdn.127.net/baf35ba7b1e444d16719fc5fd4f3233c.png",
-                "discount": null,
-                "orderNum": 203
-            },
-            {
-                "id": "1542008",
-                "name": "儿童智能电子琴",
-                "desc": "宝宝的随身钢琴老师",
-                "price": "1699.00",
-                "picture": "https://yanxuan-item.nosdn.127.net/f3f5d66d3c2a8d4d6c839b6c227ed01b.png",
-                "discount": null,
-                "orderNum": 92
-            }
-        ],
-        "categories": [
-            {
-                "id": "19999999001",
-                "name": "乐器杂项",
-                "layer": 2,
-                "parent": null
-            }
-        ],
-        "brands": [
-            {
-                "id": "1",
-                "name": "咏汉定制",
-                "nameEn": "jjzr",
-                "logo": "http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-22/fdbc5113-dcca-4b7f-b1d6-c51faf8e3de9.jpg",
-                "picture": "http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-22/fdbc5113-dcca-4b7f-b1d6-c51faf8e3de9.jpg",
-                "type": null,
-                "desc": "优秀的品牌，优秀的传扬",
-                "place": "中国江苏传智"
-            }
-        ],
-        "saleProperties": [
-            {
-                "id": "1394904088678711297",
-                "name": "颜色",
-                "properties": [
-                    {
-                        "id": "1394904429507854337",
-                        "name": "纯爱白"
-                    },
-                    {
-                        "id": "1394905736943714306",
-                        "name": "日落色"
-                    },
-                    {
-                        "id": "1394904089182027778",
-                        "name": "白色"
-                    },
-                    {
-                        "id": "1394904088968118274",
-                        "name": "黑色"
-                    },
-                    {
-                        "id": "1394904428824182786",
-                        "name": "经典黑"
-                    },
-                    {
-                        "id": "1394905735551205377",
-                        "name": "原木色"
-                    }
-                ]
-            },
-            {
-                "id": "1394905568362053633",
-                "name": "尺寸",
-                "properties": [
-                    {
-                        "id": "1394905569830060034",
-                        "name": "实木手工雕刻非洲鼓10寸：适合成人"
-                    },
-                    {
-                        "id": "1394905569268023297",
-                        "name": "实木手工雕刻非洲鼓8寸：适合儿童"
-                    }
-                ]
-            },
-            {
-                "id": "1394905023677153281",
-                "name": "材质",
-                "properties": [
-                    {
-                        "id": "1394905024880918529",
-                        "name": "桃花芯"
-                    },
-                    {
-                        "id": "1394905025514258433",
-                        "name": "胡桃木"
-                    }
-                ]
-            },
-            {
-                "id": "1394904832572080129",
-                "name": "规格",
-                "properties": [
-                    {
-                        "id": "1394904833079590914",
-                        "name": "41寸"
-                    },
-                    {
-                        "id": "1394904832890847234",
-                        "name": "36寸"
-                    }
-                ]
-            }
-        ]
+  "id": "3505027",
+  "name": "轻松快泡水滴壶日式玻璃茶壶套组花茶壶",
+  "spuCode": "3505027",
+  "desc": "连网壶盖设计，轻松过滤",
+  "price": "19.00",
+  "oldPrice": "19.00",
+  "discount": 1,
+  "inventory": 409605,
+  "brand": {
+    "id": "spider99999999999",
+    "name": "自有品牌",
+    "nameEn": "chuanzhi",
+    "logo": null,
+    "picture": null,
+    "type": null,
+    "desc": null,
+    "place": null
+  },
+  "salesCount": 3299,
+  "commentCount": 0,
+  "collectCount": 0,
+  "mainVideos": [],
+  "videoScale": 1,
+  "mainPictures": [
+    "https://yanxuan-item.nosdn.127.net/0423528ba155879e94648ee47eb06ab6.png",
+    "https://yanxuan-item.nosdn.127.net/62de6ea422e9e6a63b83ec6e774525c4.jpg",
+    "https://yanxuan-item.nosdn.127.net/ad957a03bf2a271943abe8e3d8d0fbb0.jpg",
+    "https://yanxuan-item.nosdn.127.net/5eb33f533b24295500da6fa9d9de569e.jpg",
+    "https://yanxuan-item.nosdn.127.net/5cd9019410c4908cf8ee8df907d65595.png"
+  ],
+  "specs": [
+    {
+      "name": "容量",
+      "values": [
+        {
+          "name": "茶杯130ml*2只装",
+          "picture": "https://yanxuan-item.nosdn.127.net/8d241b33b281f196ba41ff156e28154b.png",
+          "desc": "茶咖酒具-销售属性容量-茶杯130ml*2只装-规格属性图片"
+        },
+        {
+          "name": "大号壶720ml*1",
+          "picture": "https://yanxuan-item.nosdn.127.net/39a96036f72ca6c2254da64d93096866.png",
+          "desc": "茶咖酒具-销售属性容量-大号壶720ml*1-规格属性图片"
+        },
+        {
+          "name": "个人壶460ml*1",
+          "picture": "https://yanxuan-item.nosdn.127.net/4767cfb32ce13bdd1a34be5a28daec1d.png",
+          "desc": "茶咖酒具-销售属性容量-个人壶460ml*1-规格属性图片"
+        },
+        {
+          "name": "3件装大号壶720ml*1+茶杯130ml*2",
+          "picture": "https://yanxuan-item.nosdn.127.net/a05276ada7890b2e365026c6684b654b.png",
+          "desc": "茶咖酒具-销售属性容量-3件装大号壶720ml*1+茶杯130ml*2-规格属性图片"
+        },
+        {
+          "name": "6件组：大号壶+茶杯*4+茶盘",
+          "picture": "https://yanxuan-item.nosdn.127.net/80693ac34af64edce0a81353557da0f1.png",
+          "desc": "茶咖酒具-销售属性容量-6件组：大号壶+茶杯*4+茶盘-规格属性图片"
+        },
+        {
+          "name": "3件套个人壶460ml*1+茶杯130ml*2",
+          "picture": "https://yanxuan-item.nosdn.127.net/9c8f7b5c1deda1f5acbf932521c0339a.png",
+          "desc": "茶咖酒具-销售属性容量-3件套个人壶460ml*1+茶杯130ml*2-规格属性图片"
+        }
+      ]
     }
+  ],
+  "skus": [
+    {
+      "id": "300015483",
+      "skuCode": "300015483",
+      "price": "109.00",
+      "oldPrice": "149.00",
+      "inventory": 7273,
+      "specs": [
+        {
+          "name": "容量",
+          "valueName": "3件装大号壶720ml*1+茶杯130ml*2"
+        }
+      ]
+    },
+    {
+      "id": "300088077",
+      "skuCode": "300088077",
+      "price": "189.00",
+      "oldPrice": "249.00",
+      "inventory": 1604,
+      "specs": [
+        {
+          "name": "容量",
+          "valueName": "6件组：大号壶+茶杯*4+茶盘"
+        }
+      ]
+    },
+    {
+      "id": "300282441",
+      "skuCode": "300282441",
+      "price": "89.00",
+      "oldPrice": "119.00",
+      "inventory": 6855,
+      "specs": [
+        {
+          "name": "容量",
+          "valueName": "3件套个人壶460ml*1+茶杯130ml*2"
+        }
+      ]
+    },
+    {
+      "id": "3715077",
+      "skuCode": "3715077",
+      "price": "99.00",
+      "oldPrice": "129.00",
+      "inventory": 8777,
+      "specs": [
+        {
+          "name": "容量",
+          "valueName": "大号壶720ml*1"
+        }
+      ]
+    },
+    {
+      "id": "3715078",
+      "skuCode": "3715078",
+      "price": "79.00",
+      "oldPrice": "99.00",
+      "inventory": 4138,
+      "specs": [
+        {
+          "name": "容量",
+          "valueName": "个人壶460ml*1"
+        }
+      ]
+    },
+    {
+      "id": "3724289",
+      "skuCode": "3724289",
+      "price": "19.00",
+      "oldPrice": "25.00",
+      "inventory": 605,
+      "specs": [
+        {
+          "name": "容量",
+          "valueName": "茶杯130ml*2只装"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "1005009",
+      "name": "茶咖酒具",
+      "layer": 2,
+      "parent": {
+        "id": "1005000",
+        "name": "居家",
+        "layer": 1,
+        "parent": null
+      }
+    },
+    {
+      "id": "1005000",
+      "name": "居家",
+      "layer": 1,
+      "parent": null
+    }
+  ],
+  "details": {
+    "pictures": [
+      "https://yanxuan-item.nosdn.127.net/2457d7a552c520be69524b7299915ed7.jpg",
+      "https://yanxuan-item.nosdn.127.net/0254bc86ed14cec164b6295f85cdc7d6.jpg",
+      "https://yanxuan-item.nosdn.127.net/b04bbbeabd02afb1927937f6fa8b5353.jpg",
+      "https://yanxuan-item.nosdn.127.net/43286377bf96a47ed7a0641f2de62c5c.jpg",
+      "https://yanxuan-item.nosdn.127.net/19d15173b350c39b06f5ad6d25a8c516.jpg",
+      "https://yanxuan-item.nosdn.127.net/afb802e660a025b25bcace09c50676a3.jpg",
+      "https://yanxuan-item.nosdn.127.net/659dd187686dca9054c91bf0eafd6ea6.jpg",
+      "https://yanxuan-item.nosdn.127.net/88bb4e322719cf7d3948b6cde23c3ec6.jpg",
+      "https://yanxuan-item.nosdn.127.net/f6e435162affd1604d7d3e11455860f8.jpg",
+      "https://yanxuan-item.nosdn.127.net/0dbf3155973fe8398b184a4867aecbf2.jpg",
+      "https://yanxuan-item.nosdn.127.net/35c8619878183e8789a92ba27521d9f3.jpg",
+      "https://yanxuan-item.nosdn.127.net/1b18c9d2e26bcd47f523e73849938e82.jpg",
+      "https://yanxuan-item.nosdn.127.net/5eab3e8df5c11a899dbcc83a1128bc77.jpg",
+      "https://yanxuan-item.nosdn.127.net/9f38f195b81967d4b146035f9e72f711.jpg",
+      "https://yanxuan-item.nosdn.127.net/fabcb50097d8d233bc4630db914714f0.jpg",
+      "https://yanxuan-item.nosdn.127.net/e0969103e4bc5c351806936f1b29c7d5.jpg",
+      "https://yanxuan-item.nosdn.127.net/54f10d68ac3ae5adfb3b684cf6ad1258.jpg",
+      "https://yanxuan-item.nosdn.127.net/572637953797584231ba2e2a9ac1cb77.jpg",
+      "https://yanxuan-item.nosdn.127.net/6f5b208f248c10133f4cff8224fd756e.jpg",
+      "https://yanxuan-item.nosdn.127.net/1fed25fe0057dd8a4eb786a6b35e4e1f.jpg",
+      "https://yanxuan-item.nosdn.127.net/9737fa8afd2387695074e6d853626707.jpg",
+      "https://yanxuan-item.nosdn.127.net/65f34da782e815de14dd16060286ce16.jpg",
+      "https://yanxuan-item.nosdn.127.net/253253bf7bbd79d734f09468d4068dc1.jpg",
+      "https://yanxuan-item.nosdn.127.net/a5866eeb8e3fb64df4d5657d4f1309da.jpg",
+      "https://yanxuan-item.nosdn.127.net/5b2e3fc596bcf2463d0d40a9becb1584.jpg",
+      "https://yanxuan-item.nosdn.127.net/c122f24e7829ce92449b967b0026872e.jpg",
+      "https://yanxuan-item.nosdn.127.net/a0362376a2788c96d21c19ea97a2c7ac.jpg",
+      "https://yanxuan-item.nosdn.127.net/994ab539b0808ada3dba7350d936a6d7.jpg",
+      "https://yanxuan-item.nosdn.127.net/3d58c6e1c5179e92ee6f955b137e17d4.jpg",
+      "https://yanxuan-item.nosdn.127.net/9ebc2856768303d2cd2bbfb131721cb7.jpg",
+      "https://yanxuan-item.nosdn.127.net/6f6edfbe1f4c4878fd8e4f084dbd1845.jpg",
+      "https://yanxuan-item.nosdn.127.net/d7dd7a2bd4aa389db4da56ebc63b4808.jpg",
+      "https://yanxuan-item.nosdn.127.net/9119a3ece882844c116a25eb86543f11.jpg",
+      "https://yanxuan-item.nosdn.127.net/0e4eec25ad90b393d07f44c6de85557c.jpg",
+      "https://yanxuan-item.nosdn.127.net/90e93dd2010a006da0d3b7bd9adf54e8.jpg",
+      "https://yanxuan-item.nosdn.127.net/0afaab076a05bc859da609798c285a78.jpg",
+      "https://yanxuan-item.nosdn.127.net/9bc4108d858a95bebe1325089068549f.jpg",
+      "https://yanxuan-item.nosdn.127.net/b4a3e255ad7ff7a06b14ec970eed5f08.jpg",
+      "https://yanxuan-item.nosdn.127.net/2c47f654158e29a99f86acd798c4f79a.jpg",
+      "https://yanxuan-item.nosdn.127.net/95761bd49970c238abe78c72e8d8171a.jpg",
+      "https://yanxuan-item.nosdn.127.net/b7616def3af977c564f0367b8ed26756.jpg",
+      "https://yanxuan-item.nosdn.127.net/975867b8a7a3c7ed1776915b484e3422.jpg",
+      "https://yanxuan-item.nosdn.127.net/662ed0275bd02017f571c39d26782660.jpg",
+      "https://yanxuan-item.nosdn.127.net/3fdf73de5f79be01c62158ed8a6515bf.jpg",
+      "https://yanxuan-item.nosdn.127.net/db6ddf480fc9f9c36e149369d5a6f8e0.jpg",
+      "https://yanxuan-item.nosdn.127.net/6377d49dbc60aec5ed5265b6027b00a6.jpg",
+      "https://yanxuan-item.nosdn.127.net/bb907fb01c64128fbdfa13e8d2467c86.jpg",
+      "https://yanxuan-item.nosdn.127.net/ede66279b55a3443d64489d546a03587.jpg",
+      "https://yanxuan-item.nosdn.127.net/fe1ebc5df091ec4dbfb6fba2b8d1f34c.jpg",
+      "https://yanxuan-item.nosdn.127.net/0a744c89a1084214857ef5a04321f708.jpg"
+    ],
+    "properties": [
+      {
+        "name": "适用人数",
+        "value": "1-2人"
+      },
+      {
+        "name": "产地",
+        "value": "其他"
+      },
+      {
+        "name": "材质",
+        "value": "高硼硅玻璃"
+      },
+      {
+        "name": "礼品套装",
+        "value": "否"
+      },
+      {
+        "name": "适用茶",
+        "value": "绿茶、其他、花茶/果茶、白茶、黑茶、乌龙茶、红茶"
+      },
+      {
+        "name": "材质：",
+        "value": "壶身：高硼硅玻璃（耐冷耐热）\n盖子：304不锈钢"
+      },
+      {
+        "name": "容量：",
+        "value": "大壶720ml个人壶460ml分享杯130ml"
+      },
+      {
+        "name": "使用说明：",
+        "value": "1.本品为高硼硅玻璃材质，耐-10°C-160°C瞬间温差。切勿明火加热，以免造成伤害。\n2.壶盖为不锈钢材质，切勿放入微波炉中。\n3.如有脏污请用软布蘸取洗涤剂并擦干，请勿使用金属刷以免损坏器具。"
+      },
+      {
+        "name": "清洗说明",
+        "value": "若壶盖滤网出现茶垢，建议搭配严选咖啡茶垢清洁剂使用。热水浸泡片刻，立即光洁如新。"
+      }
+    ]
+  },
+  "isPreSale": false,
+  "isCollect": null,
+  "recommends": null,
+  "userAddresses": null,
+  "similarProducts": [
+    {
+      "id": "3804072",
+      "name": "【老罗推荐】落花风静煮茶香智能静音电陶炉",
+      "desc": "落花风静煮茶香",
+      "price": "305.00",
+      "picture": "https://yanxuan-item.nosdn.127.net/e8241fce615b263a2b359508b5baa143.jpg",
+      "discount": null,
+      "orderNum": 1038
+    },
+    {
+      "id": "1369155859933827074",
+      "name": "钻石陶瓷涂层多用锅18cm 小奶锅",
+      "desc": "安全耐用，易于清洗",
+      "price": "149.00",
+      "picture": "http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-05/6fdcac19-dd44-442c-9212-f7ec3cf3ed18.jpg",
+      "discount": null,
+      "orderNum": 739
+    },
+    {
+      "id": "1379052170040578049",
+      "name": "极光限定 珠光蓝珐琅锅",
+      "desc": null,
+      "price": "199.00",
+      "picture": "http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-05/7f483771-6831-4a7a-abdb-2625acb755f3.png",
+      "discount": null,
+      "orderNum": 757
+    },
+    {
+      "id": "1039037",
+      "name": "匠心手工羊脂玉白茶具礼盒6件套",
+      "desc": "礼盒套装，送礼佳品",
+      "price": "339.00",
+      "picture": "https://yanxuan-item.nosdn.127.net/9208f2df07d79dd39fb9f5eaf9ca95c6.png",
+      "discount": null,
+      "orderNum": 325
+    }
+  ],
+  "hotByDay": [
+    {
+      "id": "4000029",
+      "name": "五谷丰登好兆头白酒杯壶套装一壶五杯+骰子",
+      "desc": "纯手工精制，每一个细节都精益求精，源自20多年经验的老师傅精心手作",
+      "price": "188.00",
+      "picture": "https://yanxuan-item.nosdn.127.net/a68a4385df27f8664b318364f4cdae08.jpg",
+      "discount": null,
+      "orderNum": 118
+    },
+    {
+      "id": "3987192",
+      "name": "PC膜拉链拉杆箱系列（17/20/24/28寸）",
+      "desc": "磨砂高级质地，轻巧短途出行",
+      "price": "206.00",
+      "picture": "https://yanxuan-item.nosdn.127.net/8e1ee389d18a90fa00f338dc8534587a.png",
+      "discount": null,
+      "orderNum": 486
+    },
+    {
+      "id": "4001231",
+      "name": "2021春季新品，宝宝四季连体哈衣59-90cm",
+      "desc": "不同开襟方式，穿出更多花样",
+      "price": "55.00",
+      "picture": "https://yanxuan-item.nosdn.127.net/11fdc566c7183e77bb36913dc79c57e4.jpg",
+      "discount": null,
+      "orderNum": 232
+    },
+    {
+      "id": "4001289",
+      "name": "打翻春天调色盘，儿童印花套头卫衣5-16岁",
+      "desc": "色彩丰富，落肩款自带时髦感",
+      "price": "86.00",
+      "picture": "https://yanxuan-item.nosdn.127.net/3fbdf00e31de69f049ccde1fb7ba478d.png",
+      "discount": null,
+      "orderNum": 101
+    }
+  ],
+  "evaluationInfo": null
 }
