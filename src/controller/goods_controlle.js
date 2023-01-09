@@ -10,18 +10,17 @@ class GoodsController {
     async getGoods(ctx, next) {
         const { goods_id } = ctx.request.query
         // 返回结果
-        if (!isNaN(goods_id)) {
-            const res = await getGoodsInfo(parseInt(goods_id))
+        const res = await getGoodsInfo(parseInt(goods_id))
+        if (res === false) {
+            ctx.body = {
+                code: -1,
+                message: '商品id不存在'
+            }
+        } else {
             ctx.body = {
                 code: 0,
                 message: 'success',
                 result: res
-            }
-        } else {
-            ctx.body = {
-                code: 1,
-                message: '参数错误',
-                result: ''
             }
         }
     }
@@ -30,25 +29,28 @@ class GoodsController {
     async getGoodsDetails(ctx, next) {
         const { goods_id } = ctx.request.query
         // 返回结果
-        if (!isNaN(goods_id)) {
-            const { result, res } = await getGoodsDetails(parseInt(goods_id))
-            ctx.body = {
-                code: 0,
-                message: 'success',
-                result: [{
-                        pictures: res
-                    },
-                    {
-                        properties: result
-                    }
-                ]
+        const { result, res, isGoods } = await getGoodsDetails(parseInt(goods_id))
+        try {
+            if (isGoods === null) {
+                ctx.body = {
+                    code: -1,
+                    message: '商品id不存在',
+                }
+            } else {
+                ctx.body = {
+                    code: 0,
+                    message: 'success',
+                    result: [{
+                            pictures: res
+                        },
+                        {
+                            properties: result
+                        }
+                    ]
+                }
             }
-        } else {
-            ctx.body = {
-                code: 1,
-                message: '参数错误',
-                result: ''
-            }
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -57,26 +59,18 @@ class GoodsController {
         const { children_id, condition, sort } = ctx.request.query
         // let offset = 0  // 第N条开始
         // let limit = parseInt(pageSize)  // 每页条数
-        if (children_id != '' && condition != '' && sort != '') {
-            // if (page > 1) {
-            //     offset = (page - 1) * limit
-            // }
-            const resullt = await goodsSort(parseInt(children_id), condition, sort)
-            ctx.body = {
-                code: 0,
-                message: 'success',
-                // counts: count,
-                // page: parseInt(page),
-                // pages: Math.ceil(count / pageSize),
-                // pageSize: parseInt(pageSize),
-                result: resullt
-            }
-        } else {
-            ctx.body = {
-                code: 1,
-                message: 'error',
-                result: '参数错误'
-            }
+        // if (page > 1) {
+        //     offset = (page - 1) * limit
+        // }
+        const resullt = await goodsSort(parseInt(children_id), condition, sort)
+        ctx.body = {
+            code: 0,
+            message: 'success',
+            // counts: count,
+            // page: parseInt(page),
+            // pages: Math.ceil(count / pageSize),
+            // pageSize: parseInt(pageSize),
+            result: resullt
         }
     }
 

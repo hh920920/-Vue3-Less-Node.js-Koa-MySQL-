@@ -19,7 +19,7 @@ class HomeController {
         ctx.body = {
             code: 0,
             message: 'success',
-            result: res,
+            result: res
         }
     }
 
@@ -31,7 +31,7 @@ class HomeController {
         ctx.body = {
             code: 0,
             message: 'success',
-            result: res,
+            result: res
         }
     }
 
@@ -39,22 +39,14 @@ class HomeController {
     async freshGood(ctx, next) {
         // 获取数据条数个数，默认为4
         const { limit } = ctx.request.query
-        let num = (limit !== undefined) ? limit : 4
         // 返回结果
-        if (!isNaN(num)) {
-            const res = await getHomeFreshGoods(parseInt(num))
-            ctx.body = {
-                code: 0,
-                message: 'success',
-                result: res,
-            }
-        } else {
-            ctx.body = {
-                code: 1,
-                message: '参数错误',
-                result: ''
-            }
+        const res = await getHomeFreshGoods(parseInt(limit))
+        ctx.body = {
+            code: 0,
+            message: 'success',
+            result: res
         }
+
     }
     // 首页人气推荐
     async hot(ctx, next) {
@@ -62,7 +54,7 @@ class HomeController {
         ctx.body = {
             code: 0,
             message: 'success',
-            result: res,
+            result: res
         }
     }
 
@@ -70,21 +62,12 @@ class HomeController {
     async special(ctx, next) {
         // 获取数据条数个数，默认为3
         const { limit } = ctx.request.query
-        let num = (limit !== undefined) ? limit : 3
         // 返回结果
-        if (!isNaN(num)) {
-            const res = await getHomeSpecial(parseInt(num))
-            ctx.body = {
-                code: 0,
-                message: 'success',
-                result: res,
-            }
-        } else {
-            ctx.body = {
-                code: 1,
-                message: '参数错误',
-                result: ''
-            }
+        const res = await getHomeSpecial(parseInt(limit))
+        ctx.body = {
+            code: 0,
+            message: 'success',
+            result: res
         }
     }
 

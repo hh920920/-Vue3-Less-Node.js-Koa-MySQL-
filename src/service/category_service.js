@@ -68,7 +68,7 @@ class CategoryService {
                 }
             })
 
-            return res
+            return await res
 
         } catch (error) {
             console.error(error)

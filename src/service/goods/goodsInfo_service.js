@@ -37,6 +37,16 @@ class GoodsInfo {
     // 通过商品id获取商品信息
     async getGoodsInfo(id) {
         try {
+            // 1.先根据商品id查询商品存不存在
+            const isGoods = await Goods.findOne({
+                where: {
+                    goods_id: id
+                }
+            })
+            // 如果不存在，则返回false
+            if (!isGoods) {
+                return false
+            }
             const result = await Goods.findAll({
                 attributes: ['goods_id', 'name', 'de_sc', 'oldPrice', 'price', 'picture', 'salesCount', 'goods_status', 'children_id'],
                 include: [{
@@ -80,12 +90,14 @@ class GoodsInfo {
                 }
             })
             return result
+
+
         } catch (error) {
             console.error(error)
         }
     }
     // 商品按条件排序
-    async goodsSort(id, condition, sort ) {
+    async goodsSort(id, condition, sort) {
         try {
             const resullt = await Goods.findAll({
                 order: [
@@ -95,25 +107,25 @@ class GoodsInfo {
                     children_id: id,
                 }
             })
-            
-            return resullt 
+
+            return resullt
 
         } catch (error) {
             console.error(error)
         }
     }
     // 获取推荐商品 
-    async getGoodsRecommend () {
+    async getGoodsRecommend() {
         try {
             let result = await GoodsRecommend.findAll({
-                attributes:['goods_id'],
+                attributes: ['goods_id'],
                 include: [{
                     model: Goods
                 }]
-            })     
+            })
             return result
         } catch (error) {
-           console.error(error) 
+            console.error(error)
         }
     }
 }

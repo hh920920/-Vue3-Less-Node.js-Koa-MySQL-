@@ -3,8 +3,18 @@ const DetailsPictures = require('../../model/goods/detailsPicture_model')
 
 class GoodsDetails {
     // 获取商品详情信息
-    async getGoodsDetails (id) {
+    async getGoodsDetails(id) {
         try {
+            // 1.先根据商品id查询商品存不存在
+            const isGoods = await Details.findOne({
+                where: {
+                    goods_id: id
+                }
+            })
+            // 如果不存在，则返回false
+            if (!isGoods) {
+                return {isGoods}
+            }
             const result = await Details.findAll({
                 attributes: ['name', 'value'],
                 where: {

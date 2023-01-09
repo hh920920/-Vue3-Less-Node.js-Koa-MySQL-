@@ -21,19 +21,11 @@ class CategoryController {
     async getTopCategory(ctx, next) {
         const { id } = ctx.request.query
         // 返回结果
-        if (!isNaN(id)) {
-            const res = await getTopCategory(parseInt(id))
-            ctx.body = {
-                code: 0,
-                message: 'success',
-                result: res
-            }
-        } else {
-            ctx.body = {
-                code: 1,
-                message: 'error',
-                result: '参数错误'
-            }
+        const res = await getTopCategory(parseInt(id))
+        ctx.body = {
+            code: 0,
+            message: 'success',
+            result: res
         }
     }
 
@@ -43,19 +35,11 @@ class CategoryController {
         const { id } = ctx.request.query
         // let result = await getTopCategory( )
         // 返回结果
-        if (!isNaN(id)) {
-            const res = await getCategorySpecs(parseInt(id))
-            ctx.body = {
-                code: 0,
-                message: 'success',
-                result: res
-            }
-        } else {
-            ctx.body = {
-                code: 1,
-                message: 'error',
-                result: '参数错误'
-            }
+        const res = await getCategorySpecs(parseInt(id))
+        ctx.body = {
+            code: 0,
+            message: 'success',
+            result: res
         }
     }
 
@@ -65,30 +49,23 @@ class CategoryController {
         const id = parseInt(info.categoryId)
         const page = parseInt(info.page)
         const pageSize = parseInt(info.pageSize)
+
         let startPage = 0
         let offset = 0
         // 返回结果
-        if (!isNaN(id) && !isNaN(page) && !isNaN(pageSize)) {
-            if (page > 1) {
-                startPage = page > 1 ? page : 0
-                offset = (startPage - 1) * pageSize
-            }
-            const { count, rows } = await getCategoryGoods(id, offset, pageSize)
-            ctx.body = {
-                code: 0,
-                message: 'success',
-                counts: count,
-                page: page,
-                pages: Math.ceil(count / pageSize),
-                pageSize: pageSize,
-                result: rows
-            }
-        } else {
-            ctx.body = {
-                code: 1,
-                message: 'error',
-                result: '参数错误'
-            }
+        if (page > 1) {
+            startPage = page > 1 ? page : 0
+            offset = (startPage - 1) * pageSize
+        }
+        const { count, rows } = await getCategoryGoods(id, offset, pageSize)
+        ctx.body = {
+            code: 0,
+            message: 'success',
+            counts: count,
+            page: page,
+            pages: Math.ceil(count / pageSize),
+            pageSize: pageSize,
+            result: rows
         }
     }
 
