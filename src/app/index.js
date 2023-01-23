@@ -3,6 +3,8 @@ const path = require('path')
 const Koa = require('koa')
 const KoaBody = require('koa-body')
 
+const ejs = require('ejs')
+const views = require('koa-views')
 const KoaStatic = require('koa-static')
 const parameter = require('koa-parameter')
 const cors = require('koa2-cors'); // 解决跨域插件
@@ -29,18 +31,6 @@ app.use(
     })
 )
 
-// 跨域设置
-// app.use(async (ctx, next) => {
-//     ctx.set('Access-Control-Allow-Origin', '*')
-//     ctx.set('Access-Control-Allow-Headers', 'content-type')
-//     ctx.set('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,POST,DELETE')
-//     await next()
-//     // 允许所有跨域
-//     if (ctx.request.method === 'OPTIONS') {
-//       ctx.response.status = 200
-//       ctx.response.message = 'OK'
-//     }
-//   })
 
 // app.use(KoaStatic(path.join(__dirname, '../upload')))
 // koa-parameter 数据格式校验   使用方法和parameter一样，可在npm里面搜
@@ -61,6 +51,12 @@ app.use(cors({
     allowHeaders: ['Content-Type', 'Authorization', 'Accept'], //设置服务器支持的所有头信息字段
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'] //设置获取其他自定义字段
 }))
+
+//应用ejs 模板引擎
+app.use(views('static',{
+    extension:'ejs'
+}))
+app.use(KoaStatic(__dirname + '/static'))
 
 app.use(router.routes()).use(router.allowedMethods()) // 如果不加.use(router.allowedMethods()) 则用其他请求方式请求接口时会显示404，加上则显示501
 // 统一错误处理

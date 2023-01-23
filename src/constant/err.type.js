@@ -9,19 +9,34 @@ module.exports = {
         message: '参数格式错误',
         result: ''
     },
-    isNoGoodsError: {
+    userExist: {
         code: '10003',
-        message: '未查询到商品信息',
+        message: '该用户已注册，请前往登录',
         result: ''
     },
-    userRegisterError: {
-        code: '10003',
-        message: '用户注册错误',
+    userExistNotActivate: {
+        code: '10004',
+        message: '用户未激活，请前往邮箱激活',
         result: ''
     },
     userDoesNotExist: {
         code: '10004',
         message: '用户不存在',
+        result: ''
+    },
+    emailFormatError: {
+        code: '10005',
+        message: '邮箱格式错误',
+        result: ''
+    },
+    userRegisterError: {
+        code: '10006',
+        message: '用户注册错误',
+        result: ''
+    },
+    isNoGoodsError: {
+        code: '10003',
+        message: '未查询到商品信息',
         result: ''
     },
     userLoginError: {
