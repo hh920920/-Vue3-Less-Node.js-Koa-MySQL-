@@ -6,7 +6,7 @@ const config = {
     secure: true, // 使用SSL方式（安全方式，防止被窃取信息）
     auth: {
         user: '1414287034@qq.com',
-        pass: 'fcruphyeexupihfh'
+        pass: ''  // 邮箱POP3/SMTP服务 
     },
 }
 
