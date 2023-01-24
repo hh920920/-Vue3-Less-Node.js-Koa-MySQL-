@@ -26,7 +26,7 @@ class UserController {
         const activateToken = jwt.sign({ email: email }, JWT_SECRET, {
             // expiresIn: 以秒或描述时间跨度zeit/ms的字符串表示。 例如：60, "2 days", "10h", "7d".
             // 数值被解释为秒数。如果您使用字符串，请确保提供时间单位（天、小时等），否则默认使用毫秒单位（"120"等于"120ms"）
-            expiresIn: '1h'
+            expiresIn: '60000'
         })
         // 邮箱激活链接模板
         const mail = {

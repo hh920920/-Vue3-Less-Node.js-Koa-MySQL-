@@ -31,7 +31,7 @@ module.exports = {
     },
     userRegisterError: {
         code: '10006',
-        message: '用户注册错误',
+        message: '已过验证有效期，请重新提交注册',
         result: ''
     },
     isNoGoodsError: {

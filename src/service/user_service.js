@@ -47,6 +47,20 @@ class UserService {
             console.error(error)
         }
     }
+    // 删除用户
+    async deleteUser(email) {
+        console.log(email);
+        try {
+            const result = await User.destroy({
+                where: {
+                    user_email: email
+                }
+            })
+            return result
+        } catch (error) {
+            console.error(error)
+        }
+    }
 }
 
 module.exports = new UserService()

@@ -7,16 +7,19 @@ const {
     userExist,
     userExistNotActivate,
     emailFormatError,
+    userRegisterError
 } = require('../constant/err.type')
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const jwt_decode = require('jwt-decode')
 const { JWT_SECRET } = require('../config/config_default')
 const fs = require('fs')
 
 const {
     findUser,
-    updatedActivate
+    updatedActivate,
+    deleteUser
 } = require('../service/user_service')
 const email = require('../utils/email')
 
@@ -76,10 +79,12 @@ class User_middleware {
     async emailAccountActivate(ctx, next) {
         // 取出激活token
         const activateToken = ctx.request.url.slice(29)
-        // 1、验证激活token看是否在有效期内
-        const user = jwt.verify(activateToken, JWT_SECRET)
-        const email = user.email
+        // 解析信息
+        const jwtDecodeToken = jwt_decode(activateToken)
+        const email = jwtDecodeToken.email
         try {
+            // 1、验证激活token看是否在有效期内
+            const user = jwt.verify(activateToken, JWT_SECRET)
             // 2、如果在有效期内，修改用户表激活状态，重定向登录页
             const res = await updatedActivate(email)
             // 激活成功，重定向登录页
@@ -88,11 +93,16 @@ class User_middleware {
             }
         } catch (error) {
             // 2、如果过期，删除表的记录，并返回提示让重新提交注册
+            const res = await deleteUser(email)
+            console.log(res);
+            if (res > 0) {  
+                ctx.app.emit('error', userRegisterError, ctx)
+            }
             switch (error.name) {
                 case 'TokenExpiredError':
-                    console.error('token已过期', error)
+                    console.error('激活时间过期', error)
                 case 'JsonWebTokenError':
-                    console.error('无效的token', error)
+                    console.error('无效的激活验证', error)
             }
         }
         await next()
