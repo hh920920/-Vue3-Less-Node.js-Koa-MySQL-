@@ -4,32 +4,35 @@ const {
 } = require('../config/config_default')
 
 const {
-    TokenExpiredError,
+    tokenExpiredError,
     invalidToken,
-    hasNotAdminPermission
+    refreshTokenError
 } = require('../constant/err.type')
 
+const { getString } = require('../utils/redis-client')
+const jwt_decode = require('jwt-decode')
+
+// 验证token
 const auth = async (ctx, next) => {
     const {
         authorization = ''
     } = ctx.request.header
 
-    const token = authorization.replace('Bearer', '')
+    const token = authorization.replace('Bearer ', '')
+
+    // console.log(token);
     try {
-        // 需要token验证的接口，则通过jwt.verify()验证token的有效性
-        const user = jwt.verify(token, JWT_SECRET)
-        // ctx.state.user = user
-        console.log(user.exp);
-        console.log(new Date().getTime());
+        // 需要token验证的接口，则通过jwt.verify()验证token的有效性 
+        jwt.verify(token, JWT_SECRET)
+        // ctx.body = 'token验证通过'
     } catch (error) {
-        console.log(error);
         switch (error.name) {
             case 'TokenExpiredError':
-                console.error('token已过期', error)
-                return ctx.app.emit('error', TokenExpiredError, ctx)
+                // console.error('token已过期', error)
+                return ctx.status = 401
             case 'JsonWebTokenError':
-                console.error('无效的token', error)
-                return ctx.app.emit('error', invalidToken, ctx)
+                // console.error('无效的token', error)
+                return ctx.status = 301
         }
     }
 
@@ -37,21 +40,20 @@ const auth = async (ctx, next) => {
 }
 
 // 验证管理员权限
-const hadAdminPermission = async (ctx, next) => {
-    const {
-        is_admin
-    } = ctx.state.user
-    // 如果非管理员
-    if (!is_admin) {
-        console.error('该用户没有管理员的权限', ctx.state.user)
-        return ctx.app.emit('error', hasNotAdminPermission, ctx)
-    }
+// const hadAdminPermission = async (ctx, next) => {
+//     const {
+//         is_admin
+//     } = ctx.state.user
+//     // 如果非管理员
+//     if (!is_admin) {
+//         console.error('该用户没有管理员的权限', ctx.state.user)
+//         return ctx.app.emit('error', hasNotAdminPermission, ctx)
+//     }
 
-    await next()
-}
+//     await next()
+// }
 
 
 module.exports = {
-    auth,
-    hadAdminPermission
+    auth
 }

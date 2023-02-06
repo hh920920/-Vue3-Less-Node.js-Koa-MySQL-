@@ -4,8 +4,7 @@
 
  const {
     parameterError,
-    parameterFormatError,
-    categoryGoodsFormatError
+    parameterFormatError
 } = require('../constant/err.type')
 
 class Category_middleware {
@@ -14,12 +13,14 @@ class Category_middleware {
         const { id } = ctx.request.query
         try {
             if (id === undefined) {
-                ctx.app.emit('error', parameterError, ctx)
+                console.error(parameterError)
+                ctx.body = parameterError
                 return
             }
              // 如果参数为空或格式不是int类型
              if (isNaN(id) || id === '') {
-                ctx.app.emit('error', parameterFormatError, ctx)
+                console.error(parameterFormatError)
+                ctx.body = parameterFormatError
                 return
             }
         } catch (error) {

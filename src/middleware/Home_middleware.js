@@ -14,12 +14,14 @@ class Home_middleware {
         try {
             // 如果参数错误
             if (limit === undefined) {
-                ctx.app.emit('error', parameterError, ctx)
+                console.error(parameterError)
+                ctx.body = parameterError
                 return
             }
             // 如果参数为空或格式不是int类型
             if (isNaN(limit) || limit === '') {
-                ctx.app.emit('error', parameterFormatError, ctx)
+                console.error(parameterFormatError)
+                ctx.body = parameterFormatError
                 return
             }
         } catch (error) {

@@ -13,12 +13,14 @@ class Goods_middleware {
         const { goods_id } = ctx.request.query
         try {
             if (goods_id === undefined) {
-                ctx.app.emit('error', parameterError, ctx)
+                console.error(parameterError)
+                ctx.bpdy = parameterError
                 return
             }
              // 如果参数为空或格式不是int类型
              if (isNaN(goods_id) || goods_id === '') {
-                ctx.app.emit('error', parameterFormatError, ctx)
+                console.error(parameterFormatError)
+                ctx.bpdy = parameterFormatError
                 return
             }
         } catch (error) {

@@ -1,6 +1,9 @@
 module.exports = (err, ctx) => {
     let status = 500
     switch (err.code) {
+        case '10000':
+            status = 101
+            break
         case '10001':
             status = 400 // 400  （表示：请求参数有误）
             break

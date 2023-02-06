@@ -2,7 +2,9 @@ const Router = require('koa-router')
 
 const {
     register,
-    login
+    login,
+    refreshToken,
+    getUserInfo
 } = require('../controller/user_controller')
 
 // 导入中间件
@@ -11,7 +13,10 @@ const {
     verifyEmailAccount, // 判断邮箱账号是否存在并且已激活
     brcyptPassword, // 加密密码
     emailAccountActivate, // 邮箱账号激活
+    userVerify,   // 验证登录账号密码
 } = require('../middleware/User_middleware')
+
+const { auth } = require('../middleware/Auth.middleware')
 
 const router = new Router({
     prefix: '/user'
@@ -23,13 +28,20 @@ router.post('/register', validator, verifyEmailAccount, brcyptPassword, register
 
 // 用户激活
 router.get('/activate', emailAccountActivate)
+
 // 激活成功后渲染html页面
 router.get('/account/active',async (ctx)=>{
     await ctx.render('index')
 })
 
 // 用户登录
-router.post('/login', login)
+router.post('/login', validator, userVerify, login)
+
+// 刷新token接口
+router.post('/refreshToken', auth, refreshToken)
+
+// 获取用户信息
+router.post('/info', auth, getUserInfo)
 
 
 module.exports = router
