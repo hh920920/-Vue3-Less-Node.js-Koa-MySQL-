@@ -7,7 +7,7 @@
     </div>
     <div class="preview" v-if="currImg">
       <img :src="currImg" alt="">
-      <i @click="currImg=null" class="iconfont icon-close-new"></i>
+      <i @click="currImg=null" class="iconfont icon-close"></i>
     </div>
   </div>
 </template>

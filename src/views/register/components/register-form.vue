@@ -4,43 +4,54 @@
     <!-- 给Form表单加上 :validation-schema ，才能进行校验 -->
     <Form ref="formCom" class="form" :validation-schema="schema" v-slot="{errors}" autocomplete="off">
       <template v-if="isRegister">
-        <!-- 手机号输入框 -->
+        <!-- 邮箱输入框 -->
         <div class="form-item">
           <div class="input">
-            <i class="iconfont icon-user"></i>
-            <Field name="mobile" :class="{error: errors.mobile == '手机号格式错误' || errors.mobile == '请输入手机号' , success: errors.mobile == true }" v-model="form.mobile" type="text" placeholder="请输入手机号" />
-            <i class="iconfont icon-queren" v-if="/^1[3-9]\d{9}$/.test(form.mobile)" />
+            <i class="iconfont icon-youxiang"></i>
+            <Field name="email" :class="{error: errors.email == '邮箱格式错误' || errors.email == '请输入邮箱帐号' , success: (/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{3,4})$/).test(form.email) }" v-model="form.email" type="text" placeholder="请输入邮箱帐号" />
+            <i class="iconfont icon-queren" v-if="/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{3,4})$/.test(form.email)" />
           </div>
-          <div class="error" v-if="errors.mobile"><i class="iconfont icon-warning" />{{errors.mobile}}</div>
+          <div class="error" v-if="errors.email"><i class="iconfont icon-warning-circle" />{{errors.email}}</div>
         </div>
-        <!-- 验证码输入框 -->
+        <!-- 用户名输入框 -->
         <div class="form-item">
           <div class="input">
-            <i class="iconfont icon-code"></i>
-            <Field name="code" :class="{error: errors.code == '验证码是6个数字' , success: errors.code == 'true' }" v-model="form.code" type="text"  placeholder="请输入验证码" />
-            <span class="code" @click="send()">{{ time === 0 ? '发送验证码' : `${time}秒后发送` }}</span>
+            <i class="iconfont icon-yonghu"></i>
+            <Field name="user_name" :class="{error: errors.user_name == '请输入用户名' || errors.user_name == '字母开头且6-20个字符', success: (/^[a-zA-Z]\w{5,19}$/).test(form.user_name) }" v-model="form.user_name" type="text" placeholder="请输入用户名" />
+            <i class="iconfont icon-queren" v-if="/^[a-zA-Z]\w{5,19}$/.test(form.user_name)" />
           </div>
-          <div class="error" v-if="errors.code"><i class="iconfont icon-warning" v-if="errors.code != 'true' " /><span v-if="errors.code != 'true' ">{{errors.code}}</span></div>
+          <div class="error" v-if="errors.user_name"><i class="iconfont icon-warning-circle" />{{errors.user_name}}</div>
         </div>
         <!-- 密码输入框 -->
         <div class="form-item">
           <div class="input">
-            <i class="iconfont icon-lock"></i>
-            <Field name="password" :class="{error: errors.password == '密码是6-24个字符', success: errors.password == 'true' }" v-model="form.password" type="text" placeholder="请输入密码" />
+            <i class="iconfont icon-mima"></i>
+            <Field name="password" :class="{error: errors.password == '请输入密码' || errors.password == '密码是6-24个字符', success: (/^\w{6,24}$/).test(form.password) }" v-model="form.password" type="password" placeholder="请输入密码" />
             <i class="iconfont icon-queren" v-if="/^\w{6,24}$/.test(form.password)" />
           </div>
-          <div class="error" v-if="errors.password"><i class="iconfont icon-warning" />{{errors.password}}</div>
+          <div class="error" v-if="errors.password"><i class="iconfont icon-warning-circle" />{{errors.password}}</div>
+        </div>
+        <!-- 确认密码输入框 -->
+        <div class="form-item">
+          <div class="input">
+            <i class="iconfont icon-mima"></i>
+            <Field name="confirmPw" :class="{error: errors.confirmPw == '请输入确认密码' || errors.confirmPw == '密码是6-24个字符' ||  errors.confirmPw == '两次密码不一致', success: (/^\w{6,24}$/).test(form.confirmPw) }" v-model="form.confirmPw" type="password" placeholder="请输入确认密码" />
+            <i class="iconfont icon-queren" v-if="/^\w{6,24}$/.test(form.confirmPw)" />
+          </div>
+          <div class="error" v-if="errors.confirmPw"><i class="iconfont icon-warning-circle" />{{errors.confirmPw}}</div>
         </div>
       </template>
       <a href="javascript:;" class="btn" @click="register()">注 册</a>
-      <a href="javascript:;" class="btn" @click="goLogin()">已有账号？ 去登录</a>
+      <div class="action">
+        <a href="javascript:;" @click="goLogin()">已有账号？ 去登录 <i class="iconfont icon-youjiantou"></i></a>
+      </div> <!-- <a href="javascript:;" class="btn" @click="goLogin()">已有账号？ 去登录</a> -->
     </Form>
   </div>
 </template>
 <script>
-import { reactive, ref, onUnmounted } from 'vue'
+import { reactive, ref } from 'vue'
 import Message from '@/components/Message'
-import { userAccountLogin } from '@/api/user'
+import { userEmailRegister } from '@/api/user'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 // 引入第三方插件 vee-validate 表单验证  
@@ -64,87 +75,68 @@ export default {
 
     // 表单信息对象
     const form = reactive({
-      mobile: null,    // 账号
+      email: null,      // 邮箱账号
+      user_name: null,  // 用户名
       password: null,   // 密码
-      code: null,       // 验证码
-      // isAgree: true    // 是否同意协议
+      confirmPw: null,  // 确认密码
     })
 
     // 校验规则
     const mySchema = {
-      mobile: schema.mobile,
+      email: schema.email,
       password: schema.password,
-      code: schema.code
+      user_name: schema.user_name,
+      confirmPw: schema.confirmPw
     }
-
 
     // 监听 isRegister 重置表单 (还原数据 + 清除校验效果)
     const isRegister = ref(true)
+    // watch(isMsgLogin, () => {
+    //   // 重置数据
+    //   form.email = null
+    //   form.uuser_name = null
+    //   form.password = null
+    //   form.confirmPw = null
+    //   // 如果是没有销毁Field组件，之前的校验结果是不会清除  例如：v-show切换的
+    //   // Form组件提供了一个 resetForm 函数清除校验结果
+    //   formCom.value.resetForm()
+    // })
+
     const formCom = ref(null)
-    
 
     // 账号登录登录函数，（验证表单）  *****  ********************************
     const register = async () => {
       // Form组件提供了一个 validate() 函数来验证整体表单，返回的是一个promise，结果校验合格则是true,否则为false
-      let valid = await formCom.value.validate()
-      console.info(valid);
-      // proxy.$message({ text: '123', type: 'error'})
-      // console.log(proxy.$message({ text: '123', type: 'error'}))
-      if (valid == 'true') {
-        // let { mobile, password, code } = form
-        // 请求注册接口
-      }
+      let { valid } = await formCom.value.validate()
 
-    }
-
-
-    // 发送短信   ***************************************************
-
-    // pause 暂停 resume 开始
-    // useIntervalFn(回调函数,执行间隔,是否立即开启)
-    const time = ref(0)
-    const { pause, resume } = useIntervalFn(() => {
-      if (time.value <= 0) {
-        time.value = 0
-        pause()
-      }
-      if (time.value > 0) {
-        time.value --
-      }
-    }, 1000, false)
-    onUnmounted(() => {
-      pause()
-    })
-
-    // 1. 发送验证码
-    // 1.1 绑定发送验证码按钮点击事件
-    // 1.2 校验手机号，如果成功才去发送短信（定义API），请求成功开启60s的倒计时，不能再次点击，倒计时结束恢复
-    // 1.3 如果失败，失败的校验样式显示出来
-    const send = async () => {
-      const valid = mySchema.mobile(form.mobile)
-      console.info(valid);
       if (valid == true) {
-        // 通过
-        if (time.value === 0) {
-        // 没有倒计时才可以发送
-          // await userMobileLoginMsg(form.mobile)
-          Message({ type: 'success', text: '发送成功' })
-          time.value = 60
-          resume()
+        let { email, user_name, confirmPw } = form
+        // 请求注册接口
+        const res = await userEmailRegister({ email, user_name, password: confirmPw })
+        if (res) {
+          switch (res.code) {
+            case 0:          // 成功下发激活链接
+              Message({ type: 'success', text: res.message })
+              break
+            case '10003':    // 用户已注册
+              Message({ type: 'error', text: res.message })
+              break
+            case '10004':    // 用户未激活
+              Message({ type: 'warn', text: res.message })
+              break
+          }
         }
-      } else {
-        // 失败，使用vee的错误函数显示错误信息 setFieldError(字段,错误信息)
-        formCom.value.setFieldError('mobile', valid )
       }
+
     }
 
     // 跳转登录函数
     const goLogin = () => {
-      router.push('/login')
+      router.push('/user/login')
     }
 
 
-    return { form, isRegister, schema: mySchema, formCom, register, goLogin, time, send }
+    return { form, isRegister, schema: mySchema, formCom, register, goLogin }
   }
 }
 </script>
@@ -152,7 +144,7 @@ export default {
 // 账号容器
 .register-box {
   .toggle {
-    padding: 15px 40px;
+    margin-top: 15px;
   }
   .form {
     padding: 0 40px;
@@ -161,7 +153,9 @@ export default {
       .input {
         position: relative;
         height: 36px;
-        .icon-user, .icon-lock, .icon-code {
+        .icon-youxiang,
+        .icon-yonghu,
+        .icon-mima {
           width: 34px;
           height: 34px;
           background: #cfcdcd;
@@ -194,7 +188,7 @@ export default {
             border-color: @priceColor;
           }
           &.success {
-            border-color: rgb(164, 249, 164);
+            border-color: @themeColor;
           }
           &.active,
           &:focus {
@@ -214,7 +208,7 @@ export default {
           height: 34px;
           cursor: pointer;
           &:hover {
-          color: rgb(27, 226, 233);
+            color: rgb(27, 226, 233);
           }
         }
       }
@@ -240,11 +234,6 @@ export default {
         }
       }
     }
-    .agree {
-      a {
-        color: #069;
-      }
-    }
     .btn {
       display: block;
       width: 100%;
@@ -259,6 +248,21 @@ export default {
       }
       &.disabled {
         background: #cfcdcd;
+      }
+    }
+  }
+  .action {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    a {
+      color: rgb(90, 89, 89);
+      font-size: 16px;
+      // margin-left: 10px;
+      &:hover {
+        color: @themeColor;
       }
     }
   }

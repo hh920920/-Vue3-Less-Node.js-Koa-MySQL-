@@ -3,7 +3,7 @@
     <div class="select" @click="toggleDialog" :class="{active}">
       <span v-if="!fullLocation" class="placeholder">请选择配送地址</span>
       <span v-else class="value">{{ fullLocation }}</span>
-      <i class="iconfont icon-angle-down"></i>
+      <i class="iconfont icon-xiangxiajiantou"></i>
     </div>
     <div class="option" v-if="active">
       <div class="loading" v-if="loading"></div>

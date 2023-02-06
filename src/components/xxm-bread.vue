@@ -21,7 +21,7 @@ export default {
       if (item.type.name === 'XxmBreadItem' || item.type.displayName === 'Transition') {
         dymanicItems.push(item)
         if (i < (items.length - 1)) {
-          dymanicItems.push(h('i', { class: 'iconfont icon-angle-right' }))
+          dymanicItems.push(h('i', { class: 'iconfont icon-youjiantou' }))
         }
       }
     })

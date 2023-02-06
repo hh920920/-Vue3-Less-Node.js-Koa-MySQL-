@@ -20,16 +20,24 @@ export default {
 </script>
 <style scoped lang="less">
 .home-banner {
-  width: 1240px;
+  width: 1200px;
   height: 500px;
   position: absolute;
   left: 0;
   top: 0;
   z-index: 98;
 }
-.xtx-carousel {
+.xxm-carousel {
   ::v-deep .carousel-btn.prev {
     left: 270px;
+    &:hover {
+      color: aqua;
+    }
+  }
+  ::v-deep .carousel-btn.next {
+    &:hover {
+      color: aqua;
+    }
   }
   ::v-deep .carousel-indicator {
     padding-left: 250px;

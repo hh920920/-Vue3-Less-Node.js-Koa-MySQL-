@@ -1,7 +1,7 @@
 <template>
   <router-link :to='path' class="xxm-more">
     <span>查看全部</span>
-    <i class="iconfont icon-angle-right"></i>
+    <i class="iconfont icon-youjiantou"></i>
   </router-link>
 </template>
 

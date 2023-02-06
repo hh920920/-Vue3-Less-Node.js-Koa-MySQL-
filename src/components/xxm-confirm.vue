@@ -3,10 +3,10 @@
     <div class="wrapper">
       <div class="header">
         <h3>{{ title }}</h3>
-        <a href="JavaScript:;" @click="cancel()" class="iconfont icon-close-new"></a>
+        <a href="JavaScript:;" @click="cancel()" class="iconfont icon-close"></a>
       </div>
       <div class="body">
-        <i class="iconfont icon-warning"></i>
+        <i class="iconfont icon-warning-circle"></i>
         <span>{{ text }}</span>
       </div>
       <div class="footer">
@@ -92,7 +92,7 @@ export default {
     .body {
       padding: 20px 40px;
       font-size: 16px;
-      .icon-warning {
+      .icon-warning-circle {
         color: @priceColor;
         margin-right: 5px;
         font-size: 16px;

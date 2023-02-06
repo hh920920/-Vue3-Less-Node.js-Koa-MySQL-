@@ -11,6 +11,8 @@ const Goods = () => import('@/views/goods/index')
 const Login = () => import('@/views/login/index')
 const Register = () => import('@/views/register/index')
 const Cart = () => import('@/views/cart/index')
+const Member = () => import('@/views/member/index')
+
 
 const routes = [
   // 一级路由布局容器
@@ -23,15 +25,16 @@ const routes = [
       { path:'/category/:id',component: TopCategory },
       { path:'/category/sub/:id',component: SubCategory },
       { path:'/product/:id', component: Goods },
-      { path:'/cart', component: Cart }
+      { path:'/cart', component: Cart },
+      { path: '/member', component: Member }
     ]
   },
   {
-    path: '/register',
+    path: '/user/register',
     component: Register,
   },
   {
-    path: '/login',
+    path: '/user/login',
     component: Login,
   }
 ]

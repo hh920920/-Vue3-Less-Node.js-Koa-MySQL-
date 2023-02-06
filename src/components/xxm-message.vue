@@ -28,19 +28,19 @@ export default {
     // 定义一个对象，包含三种情况的样式，对象key就是类型字符串
     const style = {
       warn: {
-        icon: 'icon-warning',
+        icon: 'icon-warning-circle',
         color: '#E6A23C',
         backgroundColor: 'rgb(253, 246, 236)',
         borderColor: 'rgb(250, 236, 216)'
       },
       error: {
-        icon: 'icon-shanchu',
+        icon: 'icon-close',
         color: '#F56C6C',
         backgroundColor: 'rgb(254, 240, 240)',
         borderColor: 'rgb(253, 226, 226)'
       },
       success: {
-        icon: 'icon-queren2',
+        icon: 'icon-queren',
         color: '#67C23A',
         backgroundColor: 'rgb(240, 249, 235)',
         borderColor: 'rgb(225, 243, 216)'
@@ -62,7 +62,7 @@ export default {
 <style lang="less" scoped>
 .xxm-message {
   width: 300px;
-  height: 50px;
+  height: 90px;
   position: fixed;
   z-index: 999;
   left: 50%;

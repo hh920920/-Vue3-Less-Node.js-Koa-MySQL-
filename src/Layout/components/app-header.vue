@@ -5,7 +5,7 @@
       <!-- 使用头部导航组件 -->
       <AppHeaderNav />
       <div class="search">
-        <i class="iconfont icon-search"></i>
+        <i class="iconfont icon-sousuo"></i>
         <input type="text" placeholder="搜一搜" />
       </div>
       <!-- 使用头部购物车组件 -->
@@ -45,7 +45,7 @@ export default {
     position: relative;
     border-bottom: 1px solid #e7e7e7;
     line-height: 32px;
-    .icon-search {
+    .icon-sousuo {
       font-size: 18px;
       margin-left: 5px;
       cursor: pointer;

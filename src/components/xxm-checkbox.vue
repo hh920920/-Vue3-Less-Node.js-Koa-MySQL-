@@ -1,7 +1,7 @@
 <template>
     <div class="xxm-checkbox" @click="changeChecked()">
-        <i v-if="checked" class="iconfont icon-checked"></i>
-        <i v-else class="iconfont icon-unchecked"></i>
+        <i v-if="checked" class="iconfont icon-fangkuangxuanzhong"></i>
+        <i v-else class="iconfont icon-fangkuang"></i>
         <span v-if="$slots.default"><slot/></span>
     </div>
 </template>
@@ -37,7 +37,8 @@ export default {
 .xxm-checkbox {
     display: inline-block;
     margin-right: 2px;
-    .icon-checked {
+    cursor: pointer;
+    .icon-fangkuangxuanzhong {
         color: @themeColor;
         ~span {
             color: @themeColor;

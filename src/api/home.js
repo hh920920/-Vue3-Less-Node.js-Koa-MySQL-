@@ -47,5 +47,5 @@ export const findGoods = () => {
  * @returns Promise
  */
 export const findSpecial = () => {
-  return request('/home/special', 'get')
+  return request('/home/special', 'get', {limit: 4})
 }

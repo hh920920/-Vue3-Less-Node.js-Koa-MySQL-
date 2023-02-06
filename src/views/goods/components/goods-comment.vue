@@ -35,8 +35,8 @@
         </div>
         <div class="body">
           <div class="score">
-            <i v-for="i in item.score" :key="i+'s'" class="iconfont icon-wjx01"></i>
-            <i v-for="i in 5-item.score" :key="i+'k'" class="iconfont icon-wjx02"></i>
+            <i v-for="i in item.score" :key="i+'s'" class="iconfont icon-wujiaoxing"></i>
+            <i v-for="i in 5-item.score" :key="i+'k'" class="iconfont icon-star"></i>
             <span class="attr">{{formatSpecs(item.orderInfo.specs)}}</span>
           </div>
           <div class="text">{{item.content}}</div>
@@ -254,6 +254,9 @@ export default {
             color: #ff9240;
             padding-right: 3px;
           }
+          .icon-star {
+            color: #c8c7c7;
+          }
           .attr {
             padding-left: 10px;
             color: #666;
@@ -269,6 +272,9 @@ export default {
         display: flex;
         justify-content: space-between;
         margin-top: 5px;
+        .zan {
+          cursor: pointer;
+        }
       }
     }
   }

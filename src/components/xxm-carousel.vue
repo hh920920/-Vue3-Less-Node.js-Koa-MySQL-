@@ -19,9 +19,9 @@
       </li>
     </ul>
     <!-- 上一张 -->
-    <a @click="toggle(-1)" href="javascript:;" class="carousel-btn prev"><i class="iconfont icon-angle-left"></i></a>
+    <a @click="toggle(-1)" href="javascript:;" class="carousel-btn prev"><i class="iconfont icon-zuojiantou1"></i></a>
     <!-- 下一张 -->
-    <a @click="toggle(1)" href="javascript:;" class="carousel-btn next"><i class="iconfont icon-angle-right"></i></a>
+    <a @click="toggle(1)" href="javascript:;" class="carousel-btn next"><i class="iconfont icon-youjiantou"></i></a>
     <!-- 指示器 -->
     <div class="carousel-indicator">
       <!-- active 激活点 -->

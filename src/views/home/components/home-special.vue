@@ -14,9 +14,9 @@
           </div>
         </RouterLink>
         <div class="foot">
-          <span class="like"><i class="iconfont icon-hart1"></i>{{item.collectNum}}</span>
-          <span class="view"><i class="iconfont icon-see"></i>{{item.viewNum}}</span>
-          <span class="reply"><i class="iconfont icon-message"></i>{{item.replyNum}}</span>
+          <span class="like"><i class="iconfont icon-xihuan"></i>{{item.collectNum}}</span>
+          <span class="view"><i class="iconfont icon-pinglun"></i>{{item.viewNum}}</span>
+          <span class="reply"><i class="iconfont icon-pinglun"></i>{{item.replyNum}}</span>
         </div>
       </div>
     </div>

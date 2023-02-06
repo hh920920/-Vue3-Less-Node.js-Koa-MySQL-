@@ -2,47 +2,56 @@
   <div class="account-box">
     <div class="toggle">
       <a @click="isMsgLogin=false" href="javascript:;" v-if="isMsgLogin">
-        <i class="iconfont icon-user"></i> 使用账号登录
+        <i class="iconfont icon-youxiang"></i> 邮箱账号登录
       </a>
       <a @click="isMsgLogin=true" href="javascript:;" v-else>
-        <i class="iconfont icon-msg"></i> 使用短信登录
+        <i class="iconfont icon-shouji"></i> 短信验证登录
       </a>
     </div>
     <!-- 给Form表单加上 :validation-schema ，才能进行校验 -->
     <Form ref="formCom" class="form" :validation-schema="schema" v-slot="{errors}" autocomplete="off">
+      <!-- 1、邮箱账号登录 -->
       <template v-if="!isMsgLogin">
+        <!-- 1.1、邮箱账号框 -->
         <div class="form-item">
           <div class="input">
-            <i class="iconfont icon-user"></i>
-            <Field name="account" :class="{error: errors.account}" v-model="form.account" type="text" placeholder="请输入账号" />
+            <i class="iconfont icon-youxiang"></i>
+            <Field name="email" :class="{error: errors.email == '邮箱格式错误' || errors.email == '请输入邮箱帐号' , success: (/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{3,4})$/).test(form.email) }" v-model="form.email" type="text" placeholder="请输入邮箱帐号" />
+            <i class="iconfont icon-queren" v-if="/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{3,4})$/.test(form.email)" />
           </div>
-          <div class="error" v-if="errors.account"><i class="iconfont icon-warning" />{{errors.account}}</div>
+          <div class="error" v-if="errors.email"><i class="iconfont icon-warning-circle" />{{errors.email}}</div>
         </div>
+        <!-- 1.2、密码框 -->
         <div class="form-item">
           <div class="input">
-            <i class="iconfont icon-lock"></i>
-            <Field name="password" :class="{error: errors.password}" v-model="form.password" type="password" @keyup.enter="login()" placeholder="请输入密码" />
+            <i class="iconfont icon-mima"></i>
+            <Field name="password" :class="{error: errors.password == '请输入密码' || errors.password == '密码是6-24个字符', success: (/^\w{6,24}$/).test(form.password) }" v-model="form.password" type="password" placeholder="请输入密码" />
+            <i class="iconfont icon-queren" v-if="/^\w{6,24}$/.test(form.password)" />
           </div>
-          <div class="error" v-if="errors.password"><i class="iconfont icon-warning" />{{errors.password}}</div>
+          <div class="error" v-if="errors.password"><i class="iconfont icon-warning-circle" />{{errors.password}}</div>
         </div>
       </template>
+      <!-- 2、短信验证登录 -->
       <template v-else>
+        <!-- 2.1、手机号输入框 -->
         <div class="form-item">
           <div class="input">
-            <i class="iconfont icon-user"></i>
+            <i class="iconfont icon-shouji"></i>
             <Field name="mobile" :class="{error: errors.mobile}" v-model="form.mobile" type="text" placeholder="请输入手机号" />
           </div>
           <div class="error" v-if="errors.mobile"><i class="iconfont icon-warning" />{{errors.mobile}}</div>
         </div>
+        <!-- 2.2、验证码输入框 -->
         <div class="form-item">
           <div class="input">
-            <i class="iconfont icon-code"></i>
+            <i class="iconfont icon-yanzhengma"></i>
             <Field name="code" :class="{error: errors.code}" v-model="form.code" type="password" placeholder="请输入验证码" />
             <span class="code" @click="send()">{{ time === 0 ? '发送验证码' : `${time}秒后发送` }}</span>
           </div>
           <div class="error" v-if="errors.code"><i class="iconfont icon-warning" />{{errors.code}}</div>
         </div>
       </template>
+      <!-- 3、勾选同意协议 -->
       <div class="form-item">
         <div class="agree">
           <XxmCheckbox v-model="form.isAgree" />
@@ -51,9 +60,11 @@
           <span>和</span>
           <a href="javascript:;">《服务条款》</a>
         </div>
+        <div class="error" v-if="!form.isAgree"><i class="iconfont icon-warning-circle" />请勾选同意用户协议</div>
       </div>
-      <a href="javascript:;" class="btn" @click="login()" >登录</a>
+      <a href="javascript:;" class="btn" @click="login()">登录</a>
     </Form>
+    <!-- 前去登录 -->
     <div class="action">
       <img src="https://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_7.png" alt="">
       <div class="url">
@@ -66,7 +77,7 @@
 <script>
 import { onUnmounted, reactive, ref, watch } from 'vue'
 import Message from '@/components/Message'
-import { userAccountLogin, userMobileLogin, userMobileLoginMsg } from '@/api/user'
+import { userEmailLogin, userMobileLoginMsg } from '@/api/user'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 import { useIntervalFn } from '@vueuse/core'
@@ -84,27 +95,26 @@ export default {
     const isMsgLogin = ref(false)
     // 表单信息对象
     const form = reactive({
-      account: null,    // 账号
+      email: null,    // 邮箱账号
       password: null,   // 密码
       mobile: null,     // 手机号
       code: null,       // 验证码
-      isAgree: true    // 是否同意协议
+      isAgree: true     // 是否同意协议
     })
 
     // 校验规则
     const mySchema = {
-      account: schema.account,
+      email: schema.email,
       password: schema.password,
       mobile: schema.mobile,
-      code: schema.code,
-      isAgree: schema.isAgree,
+      code: schema.code
     }
 
     // 监听isMsgLogin 重置表单 (还原数据 + 清除校验效果)
     const formCom = ref(null)
     watch(isMsgLogin, () => {
       // 还原数据
-      form.account = null,
+      form.email = null,
         form.password = null,
         form.mobile = null,
         form.code = null,
@@ -127,34 +137,34 @@ export default {
     // 账号登录登录函数，（验证表单）  *************************************
     const login = async () => {
       // Form组件提供了一个 validate() 函数来验证整体表单，返回的是一个promise，结果校验合格则是true,否则为false
-      //  console.info(formCom.value.validate());
-      let valid = await formCom.value.validate()
-      console.info(valid);
-      // proxy.$message({ text: '123', type: 'error'})
-      // console.log(proxy.$message({ text: '123', type: 'error'}))
-      if (valid) {
-        let { account, password } = form
-        // 请求登录接口
-        userAccountLogin({ account, password }).then(data => {
-          // 1. 成功,存储用户信息到vuex
-          store.commit('user/setUser', data.result)
-          // 2. 提示
-          Message({ type: 'success', text: '登录成功' })
-          // 3. 跳转首页
-          router.push(route.query.redirectUrl || '/')
+      let { valid } = await formCom.value.validate()
+      if (valid && form.isAgree) {
+        const { email, password } = form
+        const res = await userEmailLogin({ email, password })
+        // 弹出提示
+        switch (res.code) {
+          case 0:          // 登录成功
+            Message({ type: 'success', text: res.message })
+            break
+          case '10007':    // 密码错误
+            Message({ type: 'warn', text: res.message })
+            break
+          case '10004':    // 用户不存在
+            Message({ type: 'error', text: res.message })
+            break
+        }
 
-        }).catch(e => {
-          // 失败 提示失败信息
-          if (e.response.data) {
-            Message({
-              type: 'error', text: e.response.data.message || '登录失败'
-            })
-          }
-        })
-      } else {
-        // 短信登录
+        if (res.code === 0) {
+          // 保存token 和 数据
+          localStorage.setItem('xxm-pc-access_t', res.data.access_token)
+          localStorage.setItem('xxm-pc-refresh_t', res.data.refresh_token)
+          store.commit('user/setUser', res.data)
+          // 跳转首页
+          setTimeout(() => {
+            router.push('/')
+          }, 1500)
+        }
       }
-
     }
 
     // 短信登录   ***************************************************
@@ -168,7 +178,7 @@ export default {
         pause()
       }
       if (time.value > 0) {
-        time.value --
+        time.value--
       }
     }, 1000, false)
     onUnmounted(() => {
@@ -185,7 +195,7 @@ export default {
         // 通过
         if (time.value === 0) {
           console.info('发送');
-        // 没有倒计时才可以发送
+          // 没有倒计时才可以发送
           await userMobileLoginMsg(form.mobile)
           Message({ type: 'success', text: '发送成功' })
           time.value = 60
@@ -199,7 +209,7 @@ export default {
 
     // 注册跳转函数
     const register = () => {
-      router.push('/register')
+      router.push('/user/register')
     }
 
 
@@ -239,6 +249,9 @@ export default {
           line-height: 34px;
           font-size: 18px;
         }
+        .icon-queren {
+          color: @themeColor;
+        }
         input {
           padding-left: 44px;
           border: 1px solid #cfcdcd;
@@ -249,7 +262,7 @@ export default {
             border-color: @priceColor;
           }
           &.success {
-            border-color: rgb(61, 240, 61);
+            border-color: @themeColor;
           }
           &.active,
           &:focus {

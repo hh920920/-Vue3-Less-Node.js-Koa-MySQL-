@@ -6,12 +6,12 @@
         <dl>
           <dt>客户服务</dt>
           <dd><i class="iconfont icon-kefu"></i> 在线客服</dd>
-          <dd><i class="iconfont icon-question"></i> 问题反馈</dd>
+          <dd><i class="iconfont icon-gerenzhongxin-wentifankui"></i> 问题反馈</dd>
         </dl>
         <dl>
           <dt>关注我们</dt>
           <dd><i class="iconfont icon-weixin"></i> 公众号</dd>
-          <dd><i class="iconfont icon-weibo"></i> 微博</dd>
+          <dd><i class="iconfont icon-xinlangweibo"></i> 微博</dd>
         </dl>
         <dl>
           <dt>下载APP</dt>
@@ -33,15 +33,15 @@
       <div class="container">
         <div class="slogan">
           <a href="javascript:;">
-            <i class="iconfont icon-footer01"></i>
+            <i class="iconfont icon-jiagecelve"></i>
             <span>价格亲民</span>
           </a>
           <a href="javascript:;">
-            <i class="iconfont icon-footer02"></i>
+            <i class="iconfont icon-dianzan"></i>
             <span>物流快捷</span>
           </a>
           <a href="javascript:;">
-            <i class="iconfont icon-footer03"></i>
+            <i class="iconfont icon-wuliuwuliuyunshu"></i>
             <span>品质新鲜</span>
           </a>
         </div>
@@ -162,7 +162,7 @@ export default {
     background-color: #333;
   }
   .slogan {
-    height: 178px;
+    height: 68px;
     line-height: 58px;
     padding: 60px 100px;
     border-bottom: 1px solid #434343;
@@ -186,7 +186,7 @@ export default {
     }
   }
   .copyright {
-    height: 170px;
+    height: 130px;
     padding-top: 40px;
     text-align: center;
     color: #999;

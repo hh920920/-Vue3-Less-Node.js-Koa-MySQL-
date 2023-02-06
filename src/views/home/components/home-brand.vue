@@ -1,8 +1,8 @@
 <template>
   <HomePanel title="热门品牌" sub-title="国际经典 品质保证">
     <template v-slot:right>
-      <a @click="toggle(-1)" :class="{disabled:index===0}" href="javascript:;" class="iconfont icon-angle-left prev"></a>
-      <a @click="toggle(1)" :class="{disabled:index===1}" href="javascript:;" class="iconfont icon-angle-right next"></a>
+      <a @click="toggle(-1)" :class="{disabled:index===0}" href="javascript:;" class="iconfont icon-zuojiantou1 prev"></a>
+      <a @click="toggle(1)" :class="{disabled:index===1}" href="javascript:;" class="iconfont icon-youjiantou next"></a>
     </template>
     <div ref="target" class="box">
       <Transition name="fade">

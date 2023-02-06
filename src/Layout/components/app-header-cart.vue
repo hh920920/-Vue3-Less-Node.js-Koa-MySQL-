@@ -2,7 +2,7 @@
   <div class="cart">
     <!-- 购物车图标 -->
     <RouterLink class="curr" to="/cart">
-      <i class="iconfont icon-cart"></i>
+      <i class="iconfont icon-gouwuche"></i>
       <em>{{$store.getters['cart/validTotal']}}</em>
     </RouterLink>
     <!-- 购物车弹出层 -->
@@ -20,7 +20,7 @@
               <p class="count">x{{goods.count}}</p>
             </div>
           </RouterLink> -->
-          <i @click="deleteCart(goods.skuId)" class="iconfont icon-close-new"></i>
+          <i @click="deleteCart(goods.skuId)" class="iconfont icon-close"></i>
         </div>
       </div>
       <div class="foot">
@@ -69,8 +69,11 @@ export default {
     text-align: center;
     position: relative;
     display: block;
-    .icon-cart {
+    .icon-gouwuche {
       font-size: 22px;
+      &:hover {
+        color: aqua;
+      }
     }
     em {
       font-style: normal;

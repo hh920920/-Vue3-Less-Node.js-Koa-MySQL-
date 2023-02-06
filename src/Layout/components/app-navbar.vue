@@ -2,35 +2,73 @@
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="profile.token">
-          <li><RouterLink to="/member"><i class="iconfont icon-user"></i>{{profile.account}}</RouterLink></li>
-          <li><a @click="logout()" href="javascript:;">退出登录</a></li>
-        </template>
-        <template v-else>
-          <li><RouterLink to="/login">请先登录</RouterLink></li>
-          <li><RouterLink to="/register">免费注册</RouterLink></li>
-        </template>
-        <li><a href="javascript:;">我的订单</a></li>
-        <li><a href="javascript:;">会员中心</a></li>
+        <li><a href="javascript:;">消息中心</a></li>
+        <li><a href="javascript:;">售后服务</a></li>
         <li><a href="javascript:;">帮助中心</a></li>
         <li><a href="javascript:;">关于我们</a></li>
-        <li><a href="javascript:;"><i class="iconfont icon-phone"></i>手机版</a></li>
+        <li><a href="javascript:;"><i class="iconfont icon-shouji"></i>手机版</a></li>
+        <template v-if="token !== null">
+          <li class="menuli">
+            <!-- <a href="javascript" class="menushow">
+              <i class="iconfont icon-yonghu"></i>{{ user_name }}<i class="iconfont icon-xiangxiajiantou"></i>
+            </a> -->
+            <!-- 有菜单 -->
+            <div class="items">
+              <div class="menu">
+                <a href="javascript:;" class="menushow">
+                  <i class="iconfont icon-yonghu"></i>{{ user_name }}<i class="iconfont icon-xiangxiajiantou"></i>
+                </a>
+                <div class="drop" @click="toMember()">个人中心</div>
+                <div class="drop">账号设置</div>
+                <div class="drop">我的积分</div>
+                <div class="drop">地址管理</div>
+                <div class="drop">我的收藏</div>
+                <div class="drop" @click="logout()">退出登录</div>
+              </div>
+            </div>
+            <!-- <div class="menuitem">
+              <a href="javascript:;" class="menushow"><i class="iconfont icon-yonghu"></i>{{ user_name }}<i class="iconfont icon-xiangxiajiantou"></i></a>
+              <p>个人中心</p>
+              <p>账号设置</p>
+              <p>我的积分</p>
+              <p>地址管理</p>
+              <p>我的收藏</p>
+              <p @click="logout()">退出登录</p>
+
+            </div> -->
+
+          </li>
+        </template>
+        <template v-else>
+          <li>
+            <RouterLink to="/user/login">请先登录</RouterLink>
+          </li>
+          <li>
+            <RouterLink to="/user/register">免费注册</RouterLink>
+          </li>
+        </template>
       </ul>
     </div>
   </nav>
 </template>
 <script>
-import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import Message from '@/components/Message'
+import { getInfoTest } from '@/api/user'
+import { computed } from 'vue'
 export default {
   name: 'AppTopnav',
-  setup () {
+  components: {
+
+  },
+  setup() {
     // 获取用户的登录信息才能控制切换导航菜单
     const store = useStore()
-    // 使用vuex中的state需要设置计算属性，否则不是响应式
-    const profile = computed(() => {
-      return store.state.user.profile
+    // 判断有无token
+    const token = localStorage.getItem('xxm-pc-access_t')
+    const user_name = computed(() => {
+      return store.state.user.profile.user_name
     })
 
     // 退出登录
@@ -39,11 +77,20 @@ export default {
     const router = useRouter()
     const logout = () => {
       store.commit('user/setUser', {})
-      // 清空购物车
-      store.commit('cart/setCart', [])
-      router.push('/login')
+      localStorage.clear()
+      Message({ type: 'success', text: '成功退出！' })
+      setTimeout(() => {
+        router.push('/user/login')
+      }, 1500)
     }
-    return { profile, logout }
+
+    // 跳转个人中心
+    const toMember = () => {
+      setTimeout(() => {
+        router.push('/member')
+      }, 500)
+    }
+    return { token, user_name, logout, toMember }
   }
 }
 </script>
@@ -55,16 +102,18 @@ export default {
     height: 53px;
     justify-content: flex-end;
     align-items: center;
+    position: relative;
     li {
+      z-index: 999;
       a {
         padding: 0 15px;
         color: #cdcdcd;
         line-height: 1;
         display: inline-block;
-        i {
-          font-size: 14px;
-          margin-right: 2px;
-        }
+        // i {
+        //   font-size: 14px;
+        //   margin-right: 2px;
+        // }
         &:hover {
           color: @themeColor;
         }
@@ -74,7 +123,55 @@ export default {
           border-left: 2px solid #666;
         }
       }
+      .icon-yonghu {
+        margin-right: 5px;
+      }
+      .menu {
+        width: 150px;
+        height: 52px;
+        line-height: 52px;
+        // background-color: blue;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        .menuitem {
+          margin-top: 10px;
+        }
+        &:hover {
+          overflow: visible;
+          color: white;
+          z-index: 999;
+          cursor: pointer;
+          .menushow {
+            color: @themeColor;
+          }
+          .icon-xiangxiajiantou {
+            display: inline-block;
+            transform: rotate(180deg);
+          }
+        }
+        .drop {
+          background-color: rgba(15, 17, 20, 0.9);
+          text-align: center;
+          width: 100%;
+          height: 45px;
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.8);
+          line-height: 45px;
+          overflow: hidden;
+          &:hover {
+            // background: rgb(214, 29, 29);
+            color: @themeColor;
+            cursor: pointer;
+          }
+        }
+      }
     }
+    // .menuli:hover {
+    //   .menuitem {
+    //     display: block;
+    //   }
+    // }
   }
 }
 // ~ 选择器作用：选择当前选择器后的所有元素
