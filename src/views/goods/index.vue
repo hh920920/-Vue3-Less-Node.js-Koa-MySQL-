@@ -22,11 +22,12 @@
           <XxmNumbox label="数量" v-model="num" :max="goods.inventory" @change="changePrice" />
           <!-- 按钮组件 -->
           <XxmButton @click="insertCart()" type="primary" style="margin-top:20px">加入购物车</XxmButton>
+          <el-button type="primary" @click="addCol()">添加收藏</el-button>
         </div>
       </div>
       <!-- 同类商品推荐 -->
       <!-- <GoodsRelevant :goodsId="goods.id" /> -->
-            <!-- 商品详情 -->
+      <!-- 商品详情 -->
       <div class="goods-footer">
         <div class="goods-article">
           <!-- 商品+评价 -->
@@ -52,8 +53,10 @@ import GoodsSku from './components/goods-sku'
 import GoodsTabs from './components/goods-tabs'
 import GoodsRecommend from './components/goods-recommend'
 import GoodsWarn from './components/goods-warn'
-import { nextTick, provide, ref, watch } from 'vue'
+import { nextTick, provide, reactive, ref, watch } from 'vue'
 import { findGoods } from '@/api/product'
+import { addUserCollect } from '@/api/user'
+import { findCartList, inserCart } from '@/api/cart'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import Message from '@/components/Message'
@@ -74,6 +77,7 @@ export default {
         goods.value.inventory = sku.inventory
         selected.value = true
         newPrice.value = sku.price
+        currSku.value = sku
       } else {
         // 记录选择后的sku，可能有数据，可能没有数据{}
         selected.value = false
@@ -94,8 +98,8 @@ export default {
       newNum.value = count
       // goods.value.price = newPrice.value * count
     }
-   
-    watch([skus,selected, newNum], (newValue, oldValue) => {
+
+    watch([skus, selected, newNum], (newValue, oldValue) => {
       if (newValue[1] === true) {
         goods.value.price = parseFloat(newPrice.value * newNum.value).toFixed(2)
       } else {
@@ -106,32 +110,76 @@ export default {
     // 加入购物车
     const store = useStore()
     const currSku = ref(null)
+    const submitCarts = reactive({
+      goods_id: 0,
+      sku_id: '',
+      goods_name: '',
+      picture: '',
+      price: 0.00,
+      count: 0
+    })
     const insertCart = () => {
       if (currSku.value && currSku.value.skuId) {
-        // id skuId name attrsText picture price nowPrice selected stock count isEffective
-        const { skuId, specsText: attrsText, inventory: stock } = currSku.value
-        const { id, name, price, mainPictures } = goods.value
-        store.dispatch('cart/insertCart', {
-          skuId,
-          attrsText,
-          stock,
-          id,
-          name,
-          price,
-          nowPrice: price,
-          picture: mainPictures[0],
-          selected: true,
-          isEffective: true,
-          count: num.value
-        }).then(() => {
-          Message({ type: 'success', text: '加入购物车成功' })
+        console.log(123);
+        submitCarts.sku_id = currSku.value.skuId
+        submitCarts.goods_name = goods.value.name
+        submitCarts.picture = goods.value.picture
+        submitCarts.price = currSku.value.price
+        submitCarts.count = newNum.value
+        submitCarts.goods_id = goods.value.goods_id
+
+        inserCart({
+          goods_id: submitCarts.goods_id,
+          sku_id: submitCarts.sku_id,
+          goods_name: submitCarts.goods_name,
+          picture: submitCarts.picture,
+          price: submitCarts.price,
+          count: submitCarts.count,
+        }).then(res => {
+
+          console.log(res);
+          if (res.code === 0) {
+            Message({ type: 'success', text: res.message })
+          }
         })
+        // id skuId name attrsText picture price nowPrice selected stock count isEffective
+        // const { skuId, specsText: attrsText, inventory: stock } = currSku.value
+        // const { id, name, price, mainPictures } = goods.value
+        // store.dispatch('cart/insertCart', {
+        //   skuId,
+        //   attrsText,
+        //   stock,
+        //   id,
+        //   name,
+        //   price,
+        //   nowPrice: price,
+        //   picture: mainPictures[0],
+        //   selected: true,
+        //   isEffective: true,
+        //   count: num.value
+        // }).then(() => {
+        //   Message({ type: 'success', text: '加入购物车成功' })
+        // })
       } else {
         Message({ text: '请选择完整规格' })
       }
     }
 
-    return { goods, changeSku, num, insertCart, changePrice }
+    // 添加收藏
+    const addCol = () => {
+      const id = goods.value.goods_id
+      addUserCollect({ goods_id: id }).then(res => {
+        console.log(res);
+        if (res.code === 0) {
+          Message({ type: 'success', text: res.message })
+        }
+        if (res.code == '10013') {
+          Message({ type: 'error', text: res.message })
+        }
+      })
+    }
+
+    return { goods, changeSku, num, insertCart, changePrice, addCol }
   }
 }
 // 获取商品详情
@@ -167,6 +215,11 @@ const useGoods = () => {
   .spec {
     flex: 1;
     padding: 30px 30px 30px 0;
+    .el-button {
+      width: 100px;
+      height: 50px;
+      margin-left: 20px;
+    }
   }
 }
 .goods-footer {

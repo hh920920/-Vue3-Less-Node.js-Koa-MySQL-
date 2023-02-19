@@ -19,24 +19,13 @@
                   <i class="iconfont icon-yonghu"></i>{{ user_name }}<i class="iconfont icon-xiangxiajiantou"></i>
                 </a>
                 <div class="drop" @click="toMember()">个人中心</div>
-                <div class="drop">账号设置</div>
-                <div class="drop">我的积分</div>
-                <div class="drop">地址管理</div>
-                <div class="drop">我的收藏</div>
+                <div class="drop" @click="toInfo()">账号设置</div>
+                <div class="drop" @click="toOrder()">我的订单</div>
+                <div class="drop" @click="toAddr()">地址管理</div>
+                <div class="drop" @click="toCollect()">我的收藏</div>
                 <div class="drop" @click="logout()">退出登录</div>
               </div>
             </div>
-            <!-- <div class="menuitem">
-              <a href="javascript:;" class="menushow"><i class="iconfont icon-yonghu"></i>{{ user_name }}<i class="iconfont icon-xiangxiajiantou"></i></a>
-              <p>个人中心</p>
-              <p>账号设置</p>
-              <p>我的积分</p>
-              <p>地址管理</p>
-              <p>我的收藏</p>
-              <p @click="logout()">退出登录</p>
-
-            </div> -->
-
           </li>
         </template>
         <template v-else>
@@ -90,7 +79,28 @@ export default {
         router.push('/member')
       }, 500)
     }
-    return { token, user_name, logout, toMember }
+
+    // 跳转地址页面
+    const toAddr = () => {
+        router.push('/user/address')
+    }
+
+    // 跳转收藏页面
+    const toCollect = () => {
+        router.push('/user/collect')
+    }
+
+    // 跳转信息设置页面
+    const toInfo = () => {
+        router.push('/user/info')
+    }
+
+    // 跳转订单页面
+    const toOrder = () => {
+      router.push('/member/order')
+    }
+
+    return { token, user_name, logout, toOrder, toMember, toInfo, toAddr, toCollect }
   }
 }
 </script>
@@ -127,7 +137,7 @@ export default {
         margin-right: 5px;
       }
       .menu {
-        width: 150px;
+        width: 160px;
         height: 52px;
         line-height: 52px;
         // background-color: blue;

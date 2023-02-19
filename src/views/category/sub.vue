@@ -52,6 +52,8 @@ export default {
       pageSize: 10
     }
 
+    let gategoryId = route.params.id
+
     /*********  获取默认数据   *********************/
     const getData = () => {
       loading.value = true
@@ -74,6 +76,8 @@ export default {
     }
     // 在更改了二级分类的时候需要重新加载数据
     watch([() => route.params.id], (newVal) => {
+      reqParams.page = 1
+      getData()
       if (newVal && `/category/sub/${newVal}` === route.path) {
         finished.value = false
         goodsList.value = [] // 导致列表空的，加载更多组件顶上来，进入可视区，区加载数据

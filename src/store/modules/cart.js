@@ -54,14 +54,14 @@ export default {
             // 1. 先找下是否有相同商品
             // 2. 如果有相同的商品，查询它的数量，累加到payload上，再保存最新位置，原来商品需要删除
             // 3. 如果没有相同商品，保存在最新位置即可
-            const sameIndex = state.list.findIndex(goods => goods.skuId === payload.skuId)
-            // 有相同的给goods累加数量，删除相同skuId的商品
-            if (sameIndex >= 1) {
-                const count = state.list[sameIndex].count
-                payload.count += count
-                // 删除原来
-                state.list.splice(sameIndex, 1)
-            }
+            // const sameIndex = state.list.findIndex(goods => goods.skuId === payload.skuId)
+            // // 有相同的给goods累加数量，删除相同skuId的商品
+            // if (sameIndex >= 1) {
+            //     const count = state.list[sameIndex].count
+            //     payload.count += count
+            //     // 删除原来
+            //     state.list.splice(sameIndex, 1)
+            // }
             // 追加新的
             state.list.unshift(payload)
         },
@@ -219,19 +219,13 @@ export default {
         // 加入购物车
         insertCart(ctx, payload) {
             return new Promise((resolve, reject) => {
-                if (ctx.rootState.user.profile.token) {
-                    // 已登录
-                    insertCart({ skuId: payload.skuId, count: payload.count }).then(() => {
-                        return findCart()
-                    }).then(data => {
-                        ctx.commit('setCart', data.result)
-                        resolve()
-                    })
-                } else {
-                    // 未登录
-                    // ctx.commit('insertCart', payload)
+                // 已登录
+                insertCart({ skuId: payload.skuId, count: payload.count }).then(() => {
+                    return findCart()
+                }).then(data => {
+                    ctx.commit('setCart', data.result)
                     resolve()
-                }
+                })
             })
         },
         // 获取商品列表

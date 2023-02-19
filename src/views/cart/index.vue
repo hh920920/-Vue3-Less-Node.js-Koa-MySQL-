@@ -32,7 +32,7 @@
           </tbody>
           <!-- 已登录则加载显示购物车商品列表 -->
           <tbody v-else>
-            <tr v-for="item in $store.getters['cart/validList']" :key="item.skuId">
+            <tr v-for="item in cartList" :key="item.skuId">
               <td>
                 <XxmCheckbox @change="($ev) => checkItem(item.skuId, $ev)" :modelValue="item.selected" />
               </td>
@@ -40,7 +40,7 @@
                 <div class="goods">
                   <RouterLink to="/"><img :src="item.picture" alt=""></RouterLink>
                   <div class="goodsInfo">
-                    <p class="name ellipsis">{{ item.name }}</p>
+                    <p class="name ellipsis">{{ item.goods_name }}</p>
                     <!-- 选择规格组件 -->
                   </div>
                 </div>
@@ -52,7 +52,7 @@
                 <XxmNumbox @change="($event) => updateCount(item.skuId, $event)" :modelValue="item.count" />
               </td>
               <td class="tc">
-                <p class="f16 price">&yen;{{ Math.round(item.nowPrice*100) * item.count/100 }}</p>
+                <p class="f16 price">&yen;{{ Math.round(item.price*100) * item.count/100 }}</p>
               </td>
               <td class="tc">
                 <p><a href="javascript:;">移入收藏夹</a></p>
@@ -83,20 +83,28 @@
 <script>
 import { useStore } from 'vuex'
 import CartNone from './components/cart-none.vue'
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
+import { findCart } from '@/api/cart'
 import Confirm from '@/components/confirm'
 import Message from '@/components/Message'
 export default {
-  name: 'XtxCart',
+  name: 'XxmCart',
   components: {
     CartNone
   },
   setup() {
     const store = useStore()
     const isLogin = ref(false)
-    const token = store.getters['user/getToken']
+    let cartList = ref(null)
+    const token = localStorage.getItem('xxm-pc-access_t')
     if (token) {
       isLogin.value = true
+      // 获取购物车列表
+      findCart().then(res => {
+        nextTick(() => {
+          cartList.value = res.data
+        })
+      })
     }
 
     // 单选
@@ -129,7 +137,7 @@ export default {
       })
     }
 
-    return { isLogin, checkItem, checkAll, deleteCart, updateCount }
+    return { isLogin, checkItem, checkAll, deleteCart, updateCount, cartList }
   }
 }
 </script>

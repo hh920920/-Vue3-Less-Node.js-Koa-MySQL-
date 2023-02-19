@@ -3,57 +3,74 @@
     <!-- 购物车图标 -->
     <RouterLink class="curr" to="/cart">
       <i class="iconfont icon-gouwuche"></i>
-      <em>{{$store.getters['cart/validTotal']}}</em>
+      <em>{{ count }}</em>
     </RouterLink>
     <!-- 购物车弹出层 -->
-    <div class="layer" v-if="$store.getters['cart/validTotal']>0&&$route.path!=='/cart'">
+    <div class="layer" v-if="count > 0 && $route.path!=='/cart'">
       <div class="list">
-        <div class="item" v-for="goods in $store.getters['cart/validList']" :key="goods.skuId">
+        <div class="item" v-for="goods in cartList" :key="goods.id">
           <RouterLink :to="`/product/${goods.id}`">
             <img :src="goods.picture" alt="" />
             <div class="center">
-              <p class="name ellipsis-2">{{goods.name}}</p>
+              <p class="name ellipsis-2">{{goods.goods_name}}</p>
               <p class="attr ellipsis">{{goods.attrsText}}</p>
             </div>
             <div class="right">
-              <p class="price">&yen;{{goods.nowPrice}}</p>
+              <p class="price">&yen;{{goods.price}}</p>
               <p class="count">x{{goods.count}}</p>
             </div>
-          </RouterLink> -->
+          </RouterLink>
           <i @click="deleteCart(goods.skuId)" class="iconfont icon-close"></i>
         </div>
       </div>
       <div class="foot">
         <div class="total">
-          <p>共 {{$store.getters['cart/validTotal']}} 件商品</p>
-          <p>&yen;{{$store.getters['cart/validAmount']}}</p>
+          <p>共 {{ count }} 件商品</p>
+          <p>&yen;{{ allPrice }}</p>
         </div>
         <XxmButton @click="$router.push('/cart')" type="plain">去购物车结算</XxmButton>
       </div>
     </div>
     <!-- 如果没登录，购物车没商品，则弹出此层 -->
-    <div class="cart-none layer" v-if="$store.getters['cart/validTotal'] === 0">
-    <div class="loading"></div>
+    <div class="cart-none layer" v-if="count === 0">
+      <div class="loading"></div>
     </div>
   </div>
 </template>
 <script>
 import { useStore } from 'vuex'
-// import Message from './library/Message'
+import { findCart } from '@/api/cart'
+import { computed, nextTick, ref } from 'vue'
 export default {
   name: 'AppHeaderCart',
-  setup () {
+  setup() {
     const store = useStore()
-    store.dispatch('cart/findCart').then(() => {
-      // Message({ type: 'success', text: '更新本地购物车成功' })
+    const count = ref(0)
+    const cartList = ref(null)
+    const allPrice = ref(0)
+    findCart().then(res => {
+      nextTick(() => {
+        count.value = res.data.length
+        cartList.value = res.data
+        cartList.value.forEach(element => {
+          allPrice.value += element.count * element.price
+        });
+      })
     })
+
+
+
+    // const allPrice = computed(() => {
+
+    //   return 0
+    // })
 
     // 删除函数
     const deleteCart = (skuId) => {
       store.dispatch('cart/deleteCart', skuId)
     }
 
-    return { deleteCart }
+    return { deleteCart, count, cartList, allPrice }
   }
 }
 </script>
@@ -93,13 +110,13 @@ export default {
   &:hover {
     .layer {
       opacity: 1;
-      transform: none
+      transform: none;
     }
   }
   // 弹层样式
   .layer {
     opacity: 0;
-    transition: all .4s .2s;   
+    transition: all 0.4s 0.2s;
     transform: translateY(-200px) scale(1, 0);
     width: 400px;
     height: 400px;
@@ -107,7 +124,7 @@ export default {
     top: 50px;
     right: 0;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     padding-top: 10px;
     // 三角箭头伪元素
@@ -119,8 +136,8 @@ export default {
       width: 20px;
       height: 20px;
       background: #fff;
-      transform: scale(0.6,1) rotate(45deg);
-      box-shadow: -3px -3px 5px rgba(0,0,0,0.1);
+      transform: scale(0.6, 1) rotate(45deg);
+      box-shadow: -3px -3px 5px rgba(0, 0, 0, 0.1);
     }
     .foot {
       position: absolute;
@@ -149,19 +166,19 @@ export default {
     height: 310px;
     overflow: auto;
     padding: 0 10px;
-    &::-webkit-scrollbar{
-      width:10px;
-      height:10px;
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
     }
-    &::-webkit-scrollbar-track{
+    &::-webkit-scrollbar-track {
       background: #f8f8f8;
       border-radius: 2px;
     }
-    &::-webkit-scrollbar-thumb{
+    &::-webkit-scrollbar-thumb {
       background: #eee;
-      border-radius:10px;
+      border-radius: 10px;
     }
-    &::-webkit-scrollbar-thumb:hover{
+    &::-webkit-scrollbar-thumb:hover {
       background: #ccc;
     }
     .item {
@@ -169,12 +186,12 @@ export default {
       padding: 10px 0;
       position: relative;
       i {
-          position: absolute;
-          bottom: 38px;
-          right: 0;
-          opacity: 0;
-          color: #666;
-          transition: all .5s;
+        position: absolute;
+        bottom: 38px;
+        right: 0;
+        opacity: 0;
+        color: #666;
+        transition: all 0.5s;
       }
       &:hover {
         i {
@@ -220,7 +237,7 @@ export default {
   .cart-none {
     opacity: 0;
     position: absolute;
-    transition: all .4s .2s;   
+    transition: all 0.4s 0.2s;
     transform: translateY(-100px) scale(1, 0);
     width: 300px;
     height: 150px;

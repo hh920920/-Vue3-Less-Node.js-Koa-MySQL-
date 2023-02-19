@@ -22,10 +22,17 @@ export const userEmailRegister = ({ email, user_name, password }) => {
 }
 
 /**
- * 测试
+ * 添加收藏列表
  */
- export const getInfoTest = () => {
-  return request('/user/info', 'post')
+ export const addUserCollect = ({ goods_id }) => {
+  return request('/user/collect', 'post', { goods_id })
+}
+
+/**
+ * 获取收藏列表
+ */
+ export const getUserCollect = () => {
+  return request('/user/collect', 'get')
 }
 
 /**
