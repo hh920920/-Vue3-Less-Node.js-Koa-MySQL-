@@ -1,9 +1,18 @@
 const {
     createUser,
-    findUser
+    findUser,
+    updateName,
+    updateSex,
+    updateBirthday,
+    updatePassword,
+    getSysMessage,
+    addUserCollect,
+    findUserCollect,
+    addCart,
+    getCartList
 } = require('../service/user_service')
 
-const { userRegisterError } = require('../constant/err.type')
+const { userRegisterError, updateError, addCollectError, addCartError } = require('../constant/err.type')
 
 const jwt_decode = require('jwt-decode')
 
@@ -26,10 +35,6 @@ class UserController {
             user_name,
             password
         } = ctx.request.body
-
-        console.log(email);
-        console.log(user_name);
-        console.log(password);
 
         // // 注册激活的token
         const activateToken = jwt.sign({ email: email }, JWT_SECRET, {
@@ -102,6 +107,8 @@ class UserController {
                     user_email: dataValues.user_email,
                     picture: dataValues.picture,
                     vipGrade: dataValues.vipGrade,
+                    sex: dataValues.sex,
+                    birthday: dataValues.birthday,
                     access_token,
                     refresh_token
                 },
@@ -173,8 +180,234 @@ class UserController {
 
     // 获取用户信息
     async getUserInfo(ctx, next) {
-        ctx.body = 'userInfo'
+        // 解析信息
+        const {
+            authorization = ''
+        } = ctx.request.header
+        let token = authorization.replace('Bearer ', '')
+        const user = jwt_decode(token)
+        const email = user.user_email
+        const res = await findUser(email)
+        ctx.body = {
+            code: 0,
+            message: 'success',
+            data: res
+        }
     }
+
+    // 修改用户名
+    async updateName(ctx, next) {
+        // 解析信息
+        const {
+            authorization = ''
+        } = ctx.request.header
+        const token = authorization.replace('Bearer ', '')
+        const { user_name } = ctx.request.body
+        const user = jwt_decode(token)
+        const email = user.user_email
+        try {
+            const res = await updateName(email, user_name)
+            if (res) {
+                ctx.body = {
+                    code: 0,
+                    message: '用户名修改成功'
+                }
+            }
+        } catch (error) {
+            console.error(error)
+            ctx.body = updateError
+        }
+    }
+
+    // 修改用户性别
+    async updateSex(ctx, next) {
+        // 解析信息
+        const {
+            authorization = ''
+        } = ctx.request.header
+        const token = authorization.replace('Bearer ', '')
+        const { sex } = ctx.request.body
+        const user = jwt_decode(token)
+        const email = user.user_email
+        try {
+            console.log(sex);
+            const res = await updateSex(email, sex)
+            if (res) {
+                ctx.body = {
+                    code: 0,
+                    message: '用户性别修改成功'
+                }
+            }
+        } catch (error) {
+            console.error(error)
+            ctx.body = updateError
+        }
+    }
+
+    // 修改用户生日
+    async updateBirthday(ctx, next) {
+        // 解析信息
+        const {
+            authorization = ''
+        } = ctx.request.header
+        const token = authorization.replace('Bearer ', '')
+        const { birthday } = ctx.request.body
+        const user = jwt_decode(token)
+        const email = user.user_email
+        try {
+            const res = await updateBirthday(email, birthday)
+            if (res) {
+                ctx.body = {
+                    code: 0,
+                    message: '用户生日修改成功'
+                }
+            }
+        } catch (error) {
+            console.error(error)
+            ctx.body = updateError
+        }
+    }
+
+    // 修改用户密码
+    async updatePassword(ctx, next) {
+        // 解析信息
+        const {
+            authorization = ''
+        } = ctx.request.header
+        const token = authorization.replace('Bearer ', '')
+        const { password } = ctx.request.body
+        const user = jwt_decode(token)
+        const email = user.user_email
+        try {
+            const res = await updatePassword(email, password)
+            if (res) {
+                ctx.body = {
+                    code: 0,
+                    message: '密码修改成功'
+                }
+                //
+            }
+        } catch (error) {
+            console.error(error)
+            ctx.body = updateError
+        }
+    }
+
+    // 获取系统消息通知
+    async getSysMessage(ctx, next) {
+        try {
+            const res = await getSysMessage()
+            if (res) {
+                ctx.body = {
+                    code: 0,
+                    message: 'success',
+                    data: res
+                }
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    // 添加收藏商品
+    async addUserCollect(ctx, next) {
+        // 解析信息
+        const {
+            authorization = ''
+        } = ctx.request.header
+        const token = authorization.replace('Bearer ', '')
+        const user = jwt_decode(token)
+        const { goods_id } = ctx.request.body
+        const email = user.user_email
+        try {
+            // console.log();
+            const res = await addUserCollect(email, goods_id)
+            if (res !== null) {
+                ctx.body = {
+                    code: 0,
+                    message: '添加收藏成功',
+                    data: res
+                }
+            } else {
+                ctx.body = addCollectError
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    // 获取用户收藏商品列表
+    async getUserCollect(ctx, next) {
+        // 解析信息
+        const {
+            authorization = ''
+        } = ctx.request.header
+        const token = authorization.replace('Bearer ', '')
+        const user = jwt_decode(token)
+        const email = user.user_email
+        try {
+            const res = await findUserCollect(email)
+            if (res) {
+                ctx.body = {
+                    code: 0,
+                    message: 'success',
+                    data: res
+                }
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    // 添加购物车
+    async addUserCar(ctx, next) {
+        const { goods_id, sku_id, goods_name, picture, price, count } = ctx.request.body
+         // 解析信息
+         const {
+            authorization = ''
+        } = ctx.request.header
+        const token = authorization.replace('Bearer ', '')
+        const user = jwt_decode(token)
+        const email = user.user_email
+        try {
+            const res = await addCart(email,parseInt(goods_id), sku_id, goods_name, picture, price, parseInt(count))
+            if (res) {
+                ctx.body = {
+                    code: 0,
+                    message: '成功加入购物车',
+                    data: res
+                }
+            }
+        } catch (error) {
+            console.error(error)
+            ctx.body = addCartError
+        }
+    }
+
+    // 获取用户购物车列表
+    async getUserCartList(ctx, next) {
+        const { goods_id, sku_id, goods_name, picture, price, count } = ctx.request.body
+        // 解析信息
+        const {
+           authorization = ''
+       } = ctx.request.header
+       const token = authorization.replace('Bearer ', '')
+       const user = jwt_decode(token)
+       const email = user.user_email
+       try {
+           const res = await getCartList(email)
+           if (res) {
+               ctx.body = {
+                   code: 0,
+                   message: 'success',
+                   data: res
+               }
+           }
+       } catch (error) {
+           console.error(error)
+       }
+    }
+
 }
 // 类不能直接导出，所以转化为导出实例化对象
 module.exports = new UserController()

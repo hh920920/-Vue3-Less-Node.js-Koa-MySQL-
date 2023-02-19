@@ -35,6 +35,16 @@
         allowNull: false,
         comment: 'Vip等级'
     },
+    sex: {
+        type: DataTypes.ENUM('男','女'),
+        allowNull: false,
+        comment: '性别'
+    },
+    birthday: {
+        type: DataTypes.DATEONLY(),
+        allowNull: false,
+        comment: '出生年月'
+    },
     user_activate: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

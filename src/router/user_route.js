@@ -4,8 +4,18 @@ const {
     register,
     login,
     refreshToken,
-    getUserInfo
+    getUserInfo,
+    updateName,
+    updateSex,
+    updateBirthday,
+    updatePassword,
+    getSysMessage,
+    getUserCollect,
+    addUserCollect,
+    addUserCar,
+    getUserCartList
 } = require('../controller/user_controller')
+
 
 // 导入中间件
 const {
@@ -42,6 +52,34 @@ router.post('/refreshToken', auth, refreshToken)
 
 // 获取用户信息
 router.post('/info', auth, getUserInfo)
+
+// 修改用户名
+router.put('/updateName', auth, updateName)
+
+// 修改用户性别
+router.put('/updateSex', auth, updateSex)
+
+// 修改用户生日
+router.put('/updateBirthday', auth, updateBirthday)
+
+// 修改用户密码
+router.put('/updatePassword', auth, brcyptPassword, updatePassword)
+
+// 获取系统消息通知
+router.get('/sysMessage', getSysMessage)
+
+// 添加收藏商品
+router.post('/collect', auth, addUserCollect)
+
+// 获取用户收藏商品列表
+router.get('/collect', auth, getUserCollect)
+
+// 添加购物车
+router.post('/cart', auth, addUserCar)
+
+// 获取用户购物车列表
+router.get('/cart', auth, getUserCartList)
+
 
 
 module.exports = router

@@ -48,5 +48,21 @@ module.exports = {
     invalidToken: {
         code: '10010',
         message: '无效的token'
-    }
+    },
+    updateError: {
+        code: '10011',
+        message: '修改失败'
+    },
+    addressFormatError: {
+        code: '10012',
+        message: '地址数据格式错误'
+    },
+    addCollectError: {
+        code: '10013',
+        message: '此商品已在收藏列表中'
+    },
+    addCartError: {
+        code: '10014',
+        message: '加入购物车失败'
+    },
 }

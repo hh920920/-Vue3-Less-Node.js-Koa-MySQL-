@@ -28,14 +28,15 @@ const auth = async (ctx, next) => {
     } catch (error) {
         switch (error.name) {
             case 'TokenExpiredError':
-                // console.error('token已过期', error)
+                console.error('token已过期', error)
+                ctx.body = tokenExpiredError
                 return ctx.status = 401
             case 'JsonWebTokenError':
-                // console.error('无效的token', error)
+                console.error('无效的token', error)
+                ctx.body = invalidToken
                 return ctx.status = 301
         }
     }
-
     await next()
 }
 

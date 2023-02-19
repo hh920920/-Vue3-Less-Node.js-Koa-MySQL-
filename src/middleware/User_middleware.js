@@ -50,7 +50,7 @@ class User_middleware {
         }
         await next()
     }
-    // 注册密码加密
+    // 密码加密
     async brcyptPassword(ctx, next) {
         const {
             password
