@@ -12,7 +12,7 @@ import Message from '@/components/Message'
 // export const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
 // export const baseURL = 'https://apipc-xiaotuxian-front.itheima.net'
 // const baseURL = 'http://106.12.126.206:3000'
-const URL = 'http://127.0.0.1:3000'
+const URL = 'http://127.0.0.1:3000/'
 const instance = axios.create({
     // axios 的一些配置，baseURL  timeout
     baseURL: URL,

@@ -2,7 +2,6 @@ import {
     createRouter,
     createWebHistory
 } from 'vue-router'
-import { h } from 'vue'
 
 const Home = () => import('@/views/home')
 const Layout = () => import('@/Layout')
@@ -41,20 +40,20 @@ const routes = [
             { path: '/category/sub/:id', component: SubCategory },
             { path: '/product/:id', component: Goods },
             { path: '/cart', component: Cart },
-            { path: '/member/checkout', component: Checkout },
-            { path: '/member/pay', component: Pay },
-            { path: '/pay/callback', component: PayResult },
+            { path: '/member/checkout', component: Checkout, meta: { auth: true } },
+            { path: '/member/pay', component: Pay, meta: { auth: true } },
+            { path: '/pay/callback', component: PayResult, meta: { auth: true } },
             // { path: '/member', component: Member },
             {
                 path: '/member',
                 component: Member,
                 children: [
-                    { path: '/member', component: MemberHome },
-                    { path: '/user/info', component: UserInfo },
-                    { path: '/user/set', component: UserSet },
-                    { path: '/user/sysmessage', component: SysMessage },
-                    { path: '/user/address', component: UserAddress },
-                    { path: '/user/collect', component: UserCollect },
+                    { path: '/member', component: MemberHome, meta: { auth: true } },
+                    { path: '/user/info', component: UserInfo, meta: { auth: true } },
+                    { path: '/user/set', component: UserSet, meta: { auth: true } },
+                    { path: '/user/sysmessage', component: SysMessage, meta: { auth: true } },
+                    { path: '/user/address', component: UserAddress, meta: { auth: true } },
+                    { path: '/user/collect', component: UserCollect, meta: { auth: true } },
                 ]
             },
             {
@@ -63,8 +62,8 @@ const routes = [
                 // component: { render: () => h(<RouterView />) },
                 component: Member,
                 children: [
-                    { path: '', component: MemberOrder },
-                    { path: ':id', component: MemberOrderDetail }
+                    { path: '', component: MemberOrder, meta: { auth: true } },
+                    { path: ':id', component: MemberOrderDetail, meta: { auth: true } }
                 ]
             }
         ]
@@ -79,21 +78,7 @@ const routes = [
     }
 ]
 
-// 导航守卫
-// 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
-// router.beforeEach((to, from, next) => {
-//   if (to.path === '/login') {
-//     next();
-//   } else {
-//     let token = localStorage.getItem('Authorization');
 
-//     if (token === null || token === '') {
-//       next('/login');
-//     } else {
-//       next();
-//     }
-//   }
-// })
 
 
 const router = createRouter({
@@ -108,6 +93,29 @@ const router = createRouter({
             }, 500)
         })
     },
+})
+
+// 导航守卫
+// 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
+router.beforeEach(async (to, from, next) => {
+    const token = await localStorage.getItem('xxm-pc-access_t')
+    if (to.meta.auth) {
+        if (token) {
+            next()
+        } else {
+            next('/user/login?redirect=' + to.fullPath)
+        }
+    } else {
+        if (to.path == '/user/login') {
+            if (token) {
+                next(from.path)
+            } else {
+                next()
+            }
+        } else {
+            next()
+        }
+    }
 })
 
 
