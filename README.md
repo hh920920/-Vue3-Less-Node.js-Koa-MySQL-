@@ -1,5 +1,16 @@
 # shopping_pc
 
+
+## 演示地址：
+```
+http://175.178.24.183/
+```
+
+## 后端源码地址：
+```
+https://github.com/hh920920/vue3-shopping-project/tree/serveApi
+```
+
 ## Project setup
 ```
 npm install
